@@ -13,7 +13,7 @@
  * @修改内容：
  ************************************************************************************************/
 
-package com.xh.shopping.jdbc;
+package com.xh.shopping.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -25,7 +25,18 @@ import java.sql.Statement;
 /**
  * @文件名称：JDBC.java 数据库连接、操纵数据库 插入、删除、更改、
  */
-public class JDBC {
+public class DB {
+
+	/**
+	 * 静态块 进入本类就执行语句
+	 */
+	static {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * @return connection 获取一个数据库的连接
@@ -33,11 +44,8 @@ public class JDBC {
 	public static Connection getConnection() {
 		Connection connection = null;
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
 			connection = DriverManager.getConnection(
 					"jdbc:mysql://localhost:3306/xhsp", "root", "root");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -67,9 +75,9 @@ public class JDBC {
 	 *            传入的数据库连接
 	 * @param sql
 	 *            SQL语句
-	 * @return PStatement 执行SQL语句带参的语句
+	 * @return PreparedStatement PStatement 执行SQL语句带参的语句
 	 */
-	public static Statement getPStatement(Connection connection, String sql) {
+	public static PreparedStatement getPStatement(Connection connection, String sql) {
 		PreparedStatement PStatement = null;
 		try {
 			PStatement = connection.prepareStatement(sql);
