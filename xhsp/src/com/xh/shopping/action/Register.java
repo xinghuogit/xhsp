@@ -2,6 +2,7 @@ package com.xh.shopping.action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,7 +44,19 @@ public class Register extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 
 		PrintWriter out = response.getWriter();
-		out.print("hhhhhhhhhhhhhhhhhhhh");
+
+		// 通过枚举类型获取请求文件的头部信息集
+		Enumeration<String> headerNames = request.getHeaderNames();
+
+		// 遍历头部信息集
+		while (headerNames.hasMoreElements()) {
+			// 取出信息名
+			String name = (String) headerNames.nextElement();
+			String value = request.getHeader(name);
+			out.print(name + value + "<br/>");
+		}
+
+		out.print("输出一个信息");
 
 		out.flush();
 		out.close();
