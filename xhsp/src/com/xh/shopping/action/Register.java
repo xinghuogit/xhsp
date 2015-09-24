@@ -38,7 +38,7 @@ public class Register extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
+		// request.setCharacterEncoding("utf-8");
 
 		response.setContentType("text/html;charset=utf-8");
 		response.setCharacterEncoding("utf-8");
@@ -53,10 +53,28 @@ public class Register extends HttpServlet {
 			// 取出信息名
 			String name = (String) headerNames.nextElement();
 			String value = request.getHeader(name);
-			out.print(name + value + "<br/>");
+			// out.print("键name:" + name + "值value:" + value + "<br/>");
 		}
 
-		out.print("输出一个信息");
+		String name = request.getParameter("user");
+		String password = request.getParameter("password");
+
+		if (name == null || name.equals("")) {
+			out.print("账号不可为空");
+			return;
+		}
+
+		if (password == null || password.equals("")) {
+			out.print("密码不可为空");
+			return;
+		}
+		out.print("name" + new String(name.getBytes("iso-8859-1"), "utf-8")
+				+ "password"
+				+ new String(password.getBytes("iso-8859-1"), "utf-8"));
+		System.out.println("name"
+				+ new String(name.getBytes("iso-8859-1"), "utf-8"));
+		System.out.println("password"
+				+ new String(password.getBytes("iso-8859-1"), "utf-8"));
 
 		out.flush();
 		out.close();
