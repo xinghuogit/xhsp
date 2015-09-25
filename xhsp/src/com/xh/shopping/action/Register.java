@@ -68,9 +68,14 @@ public class Register extends HttpServlet {
 			out.print("密码不可为空");
 			return;
 		}
-		out.print("name" + new String(name.getBytes("iso-8859-1"), "utf-8")
-				+ "password"
-				+ new String(password.getBytes("iso-8859-1"), "utf-8"));
+
+		out.print("账号name：" + name + "密码password：" + password);
+		System.out.println("name：" + name);
+		System.out.println("password：" + password);
+
+		// out.print("name" + new String(name.getBytes("iso-8859-1"), "utf-8")
+		// + "password"
+		// + new String(password.getBytes("iso-8859-1"), "utf-8"));
 		System.out.println("name"
 				+ new String(name.getBytes("iso-8859-1"), "utf-8"));
 		System.out.println("password"
