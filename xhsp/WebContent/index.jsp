@@ -7,7 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-index.jsp
-未找到页面
+	<form action="Upload" method="post" enctype="multipart/form-data">
+		<input type="file" name="file"><br> <input type="submit"
+			value="submit">
+	</form>
+	index.jsp 未找到页面
 </body>
 </html>
