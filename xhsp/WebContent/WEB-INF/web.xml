@@ -1,28 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:web="http://xmlns.jcp.org/xml/ns/javaee"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
 	id="WebApp_9" version="2.4">
-	<!-- <filter> <description>字符集过滤器</description> <filter-name>encodingFilter</filter-name> 
-		<filter-class>com.xh.shopping.action.Register</filter-class> <init-param> 
-		<description>字符集编码</description> <param-name>encoding</param-name> <param-value>UTF-8</param-value> 
-		</init-param> </filter> <filter-mapping> <filter-name>encodingFilter </filter-name> 
-		<url-pattern>/register.json</url-pattern> </filter-mapping> -->
-
 	<servlet>
 		<servlet-name>Register</servlet-name>
 		<servlet-class>com.xh.shopping.action.Register</servlet-class>
 	</servlet>
+
 	<servlet-mapping>
 		<servlet-name>Register</servlet-name>
 		<url-pattern>/register.json</url-pattern>
 	</servlet-mapping>
 
-	<!-- 当用户在浏览器中输入的URL不包含某个servlet名或JSP页面时，welcome-file-list元素可指定显示的默认文件。 -->
+
+
+
+
+
 	<welcome-file-list>
-		<welcome-file>index.json</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
-
-
-
 </web-app>
