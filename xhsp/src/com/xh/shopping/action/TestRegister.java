@@ -73,7 +73,7 @@ public class TestRegister extends HttpServlet {
 		System.out.println("password：" + password);
 
 		out.print("name" + new String(name.getBytes("iso-8859-1"), "utf-8")
-				+ "password"
+				+ "\npassword"
 				+ new String(password.getBytes("iso-8859-1"), "utf-8"));
 		System.out.println("name"
 				+ new String(name.getBytes("iso-8859-1"), "utf-8"));
