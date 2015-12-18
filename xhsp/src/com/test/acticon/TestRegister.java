@@ -1,4 +1,4 @@
-package com.xh.shopping.action;
+package com.test.acticon;
 
 import java.io.IOException;
 import java.io.PrintWriter;

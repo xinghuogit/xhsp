@@ -1,4 +1,4 @@
-package com.xh.shopping.action;
+package com.test.acticon;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -48,8 +48,8 @@ public class Upload extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		response.setCharacterEncoding("utf-8");
 		PrintWriter out = response.getWriter();
-		out.print("成功fff");
-		System.out.println("成功了");
+		out.print("成功上传");
+		System.out.println("成功接收");
 
 	}
 

@@ -3,15 +3,17 @@
 	xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:web="http://xmlns.jcp.org/xml/ns/javaee"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
 	id="WebApp_9" version="2.4">
+
+	<!-- 测试Androidhttp和client上传数据获取数据 -->
 	<servlet>
 		<servlet-name>Register</servlet-name>
-		<servlet-class>com.xh.shopping.action.TestRegister</servlet-class>
+		<servlet-class>com.test.acticon.TestRegister</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Register</servlet-name>
-		<url-pattern>/register.json</url-pattern>
+		<url-pattern>/testregister.json</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>TestJson</servlet-name>
 		<servlet-class>com.test.acticon.JsonService</servlet-class>
@@ -20,6 +22,17 @@
 		<servlet-name>TestJson</servlet-name>
 		<url-pattern>/testjson.json</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Upload</servlet-name>
+		<servlet-class>com.test.acticon.Upload</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Upload</servlet-name>
+		<url-pattern>/upload.json</url-pattern>
+	</servlet-mapping>
+
+	<!-- 测试Androidhttp和client上传数据获取数据 -->
 
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
