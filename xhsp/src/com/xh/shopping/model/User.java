@@ -38,9 +38,9 @@ public class User implements Serializable {
 	private String username;
 	private String password;
 	private String phone;
-	private String auth;
+	// private String auth;
 	private String name;
-	private String pid;
+	// private String pid;
 	private String addr;
 	private Date rdate;
 	private Date cpdate;
@@ -77,13 +77,13 @@ public class User implements Serializable {
 		this.phone = phone;
 	}
 
-	public String getAuth() {
-		return auth;
-	}
-
-	public void setAuth(String auth) {
-		this.auth = auth;
-	}
+	// public String getAuth() {
+	// return auth;
+	// }
+	//
+	// public void setAuth(String auth) {
+	// this.auth = auth;
+	// }
 
 	public String getName() {
 		return name;
@@ -93,13 +93,13 @@ public class User implements Serializable {
 		this.name = name;
 	}
 
-	public String getPid() {
-		return pid;
-	}
-
-	public void setPid(String pid) {
-		this.pid = pid;
-	}
+	// public String getPid() {
+	// return pid;
+	// }
+	//
+	// public void setPid(String pid) {
+	// this.pid = pid;
+	// }
 
 	public String getAddr() {
 		return addr;
@@ -125,27 +125,57 @@ public class User implements Serializable {
 		this.cpdate = cpdate;
 	}
 
-	public void save() {
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public User(String username, String password, String phone, String name,
+			String addr, Date rdate, Date cpdate) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.phone = phone;
+		this.name = name;
+		this.addr = addr;
+		this.rdate = rdate;
+		this.cpdate = cpdate;
+	}
+
+	public void save() throws SQLException {
 		Connection connection = DB.getConnection();
-		String sql = "insert into user values (null, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "insert into user values (null, ?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement pStatement = DB.getPStatement(connection, sql);
+		pStatement.setString(1, getUsername());
+		pStatement.setString(2, getPassword());
+		pStatement.setString(3, getPhone());
+		pStatement.setString(4, getName());
+		pStatement.setString(5, getAddr());
+		pStatement.setTimestamp(6, new Timestamp(getRdate().getTime()));
+		pStatement.setTimestamp(7, new Timestamp(getCpdate().getTime()));
+		pStatement.executeUpdate();
+
 		try {
-			pStatement.setString(1, getUsername());
-			pStatement.setString(2, getPassword());
-			pStatement.setString(3, getPhone());
-			pStatement.setString(4, getAuth());
-			pStatement.setString(5, getName());
-			pStatement.setString(6, getPid());
-			pStatement.setString(7, getAddr());
-			pStatement.setTimestamp(8, new Timestamp(getRdate().getTime()));
-			pStatement.setTimestamp(9, new Timestamp(getCpdate().getTime()));
-			pStatement.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
+
 		} finally {
+			System.out.println("关闭数据库");
 			DB.close(pStatement);
 			DB.close(connection);
 		}
-	}
 
+		// try {
+		// pStatement.setString(1, getUsername());
+		// pStatement.setString(2, getPassword());
+		// pStatement.setString(3, getPhone());
+		// pStatement.setString(4, getName());
+		// pStatement.setString(5, getAddr());
+		// pStatement.setTimestamp(6, new Timestamp(getRdate().getTime()));
+		// pStatement.setTimestamp(7, new Timestamp(getCpdate().getTime()));
+		// pStatement.executeUpdate();
+		// } catch (SQLException e) {
+		// e.printStackTrace();
+		// } finally {
+		// DB.close(pStatement);
+		// DB.close(connection);
+	}
 }

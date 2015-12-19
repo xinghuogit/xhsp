@@ -4,6 +4,15 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
 	id="WebApp_9" version="2.4">
 
+	<servlet>
+		<servlet-name>UserRegister</servlet-name>
+		<servlet-class>com.xh.shopping.action.UserRegister</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UserRegister</servlet-name>
+		<url-pattern>/userregister.json</url-pattern>
+	</servlet-mapping>
+
 	<!-- 测试Androidhttp和client上传数据获取数据 -->
 	<servlet>
 		<servlet-name>Register</servlet-name>
@@ -33,15 +42,6 @@
 	</servlet-mapping>
 
 	<!-- 测试Androidhttp和client上传数据获取数据 -->
-
-	<servlet>
-		<servlet-name>UserRegister</servlet-name>
-		<servlet-class>com.xh.shopping.action.UserRegister</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>UserRegister</servlet-name>
-		<url-pattern>/userregister.json</url-pattern>
-	</servlet-mapping>
 
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
