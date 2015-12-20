@@ -6,9 +6,6 @@ package com.xh.shopping.util;
  */
 public class StringUtil {
 	public static boolean isStringDataNull(String str) {
-		if (str == null && "".equals(str)) {
-			return true;
-		}
-		return false;
+		return str == null || str.trim().length() == 0;
 	}
 }

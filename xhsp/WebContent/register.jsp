@@ -20,9 +20,7 @@
 		user.setUsername(username);
 		user.setPassword(password);
 		user.setPhone(phone);
-		user.setAuth(auth);
 		user.setName(name);
-		user.setPid(pid);
 		user.setAddr(addr);
 		user.setRdate(rdate);
 		user.setCpdate(cpdate);

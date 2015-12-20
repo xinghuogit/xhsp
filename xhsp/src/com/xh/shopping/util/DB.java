@@ -40,15 +40,18 @@ public class DB {
 
 	/**
 	 * @return connection 获取一个数据库的连接
+	 * @throws SQLException
 	 */
-	public static Connection getConnection() {
+	public static Connection getConnection() throws SQLException {
 		Connection connection = null;
-		try {
-			connection = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/xhsp", "root", "root");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		// try {
+		connection = DriverManager
+				.getConnection(
+						"jdbc:mysql://rds861y2gckfb4dvlus4.mysql.rds.aliyuncs.com:3306/xhspsql",
+						"xhspsql", "liLJM371916");
+		// } catch (SQLException e) {
+		// e.printStackTrace();
+		// }
 		return connection;
 	}
 
@@ -77,7 +80,8 @@ public class DB {
 	 *            SQL语句
 	 * @return PreparedStatement PStatement 执行SQL语句带参的语句
 	 */
-	public static PreparedStatement getPStatement(Connection connection, String sql) {
+	public static PreparedStatement getPStatement(Connection connection,
+			String sql) {
 		PreparedStatement PStatement = null;
 		try {
 			PStatement = connection.prepareStatement(sql);
@@ -99,6 +103,24 @@ public class DB {
 		ResultSet resultSet = null;
 		try {
 			resultSet = statement.executeQuery(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return resultSet;
+	}
+
+	/**
+	 * 
+	 * @param statement
+	 *            执行SQL语句不带参的语句
+	 * @param sql
+	 *            SQL语句
+	 * @return resultSet 返回的结果集 resultSet.next(); 一整条数据
+	 */
+	public static ResultSet executeQuery(Connection connection, String sql) {
+		ResultSet resultSet = null;
+		try {
+			resultSet = connection.createStatement().executeQuery(sql);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

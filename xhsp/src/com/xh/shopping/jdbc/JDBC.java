@@ -35,7 +35,7 @@ public class JDBC {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			connection = DriverManager.getConnection(
-					"rds861y2gckfb4dvlus4.mysql.rds.aliyuncs.com", "xhspsql",
+					"jdbc:mysql://rds861y2gckfb4dvlus4.mysql.rds.aliyuncs.com:3306", "xhspsql",
 					"liLJM371916");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

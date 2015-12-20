@@ -18,9 +18,12 @@ package com.xh.shopping.model;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.xh.shopping.util.DB;
 
@@ -33,6 +36,10 @@ public class User implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
+	private Connection connection;
+	private PreparedStatement pStatement;
+	private ResultSet rs;
 
 	private int id;
 	private String username;
@@ -130,9 +137,10 @@ public class User implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(String username, String password, String phone, String name,
-			String addr, Date rdate, Date cpdate) {
+	public User(int id, String username, String password, String phone,
+			String name, String addr, Date rdate, Date cpdate) {
 		super();
+		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.phone = phone;
@@ -143,22 +151,20 @@ public class User implements Serializable {
 	}
 
 	public void save() throws SQLException {
-		Connection connection = DB.getConnection();
-		String sql = "insert into user values (null, ?, ?, ?, ?, ?, ?, ?)";
-		PreparedStatement pStatement = DB.getPStatement(connection, sql);
-		pStatement.setString(1, getUsername());
-		pStatement.setString(2, getPassword());
-		pStatement.setString(3, getPhone());
-		pStatement.setString(4, getName());
-		pStatement.setString(5, getAddr());
-		pStatement.setTimestamp(6, new Timestamp(getRdate().getTime()));
-		pStatement.setTimestamp(7, new Timestamp(getCpdate().getTime()));
-		pStatement.executeUpdate();
-
 		try {
-
+			connection = DB.getConnection();
+			String sql = "insert into ruser values (null, ?, ?, ?, ?, ?, ?, ?)";
+			pStatement = DB.getPStatement(connection, sql);
+			pStatement.setString(1, getUsername());
+			pStatement.setString(2, getPassword());
+			pStatement.setString(3, getPhone());
+			pStatement.setString(4, getName());
+			pStatement.setString(5, getAddr());
+			pStatement.setTimestamp(6, new Timestamp(getRdate().getTime()));
+			pStatement.setTimestamp(7, new Timestamp(getCpdate().getTime()));
+			pStatement.executeUpdate();
 		} finally {
-			System.out.println("关闭数据库");
+			System.out.println("是否异常都需关闭数据库连接");
 			DB.close(pStatement);
 			DB.close(connection);
 		}
@@ -178,4 +184,44 @@ public class User implements Serializable {
 		// DB.close(pStatement);
 		// DB.close(connection);
 	}
+
+	public boolean getUserName(String username) throws SQLException {
+		try {
+			String sql = "select * from ruser";
+			connection = (Connection) DB.getConnection();
+			rs = DB.executeQuery(connection, sql);
+			while (rs.next()) {
+				if (username.equals(rs.getString("username"))) {
+					return false;
+				}
+			}
+			return true;
+		} finally {
+			System.out.println("是否异常都需关闭数据库连接");
+			DB.close(rs);
+			DB.close(connection);
+		}
+	}
+
+	public List<User> getUser() throws SQLException {
+		try {
+			List<User> users = new ArrayList<User>();
+			String sql = "select * from ruser";
+			connection = (Connection) DB.getConnection();
+			rs = DB.executeQuery(connection, sql);
+			while (rs.next()) {
+				User user = new User();
+				user.setId(Integer.valueOf(rs.getString("id")));
+				user.setUsername(rs.getString("username"));
+				user.setPassword(rs.getString("password"));
+				users.add(user);
+			}
+			return users;
+		} finally {
+			System.out.println("是否异常都需关闭数据库连接");
+			DB.close(rs);
+			DB.close(connection);
+		}
+	}
+
 }

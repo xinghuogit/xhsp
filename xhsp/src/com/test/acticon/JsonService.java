@@ -2,7 +2,9 @@ package com.test.acticon;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -15,6 +17,8 @@ import com.google.gson.Gson;
 import com.test.model.Person;
 import com.test.model.Result;
 import com.test.model.School;
+import com.xh.shopping.model.User;
+import com.xh.shopping.util.JSONUtil;
 
 /**
  * Servlet implementation class Json
@@ -84,6 +88,28 @@ public class JsonService extends HttpServlet {
 
 		System.out.println(gson.toJson(result));
 
+		List<User> users = new ArrayList<User>();
+		User user = new User();
+
+		try {
+			users = user.getUser();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		if (users.size() > 0) {
+			String json = JSONUtil.getInstance().getJSON("0000", "成功", users);
+			System.out.println("json:" + json);
+			String json1 = JSONUtil.getInstance().getJSON("0000", "成功", null);
+			System.out.println("json1:" + json1);
+
+			User user2 = new User(1, "18380287539", "18380287539",
+					"18380287539", "18380287539", "18380287539", new Date(),
+					new Date());
+
+			String json2 = JSONUtil.getInstance().getJSON("0000", "成功", user2);
+			System.out.println("json2:" + json2);
+		}
 	}
 
 }
