@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.mysql.jdbc.Connection;
 import com.xh.shopping.model.User;
 import com.xh.shopping.util.DB;
+import com.xh.shopping.util.JSONUtil;
+import com.xh.shopping.util.MD5;
 import com.xh.shopping.util.StringUtil;
 
 /**
@@ -37,9 +39,12 @@ public class UserRegister extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("doGet请求");
+		response.setContentType("text/html;charset=utf-8");
+		response.setCharacterEncoding("utf-8");
 		PrintWriter out = response.getWriter();
-		out.print("doGet");
+		out.print(JSONUtil.getInstance()
+				.getJSON("0009", "非法操作,请使用POST请求", null));
+		System.out.println("非法操作,请使用POST请求");
 	}
 
 	/**
@@ -63,22 +68,26 @@ public class UserRegister extends HttpServlet {
 		// String addr = request.getParameter("addr");
 
 		if (StringUtil.isStringDataNull(username)) {
-			out.print("账号不可为空");
+			out.print(JSONUtil.getInstance().getJSON("0009", "非法操作", null));
+			System.out.println("非法操作：账号为空");
 			return;
 		}
 		if (StringUtil.isStringDataNull(password)) {
-			out.print("密码不可为空");
+			out.print(JSONUtil.getInstance().getJSON("0009", "非法操作", null));
+			System.out.println("非法操作：密码为空");
 			return;
 		}
 		if (StringUtil.isStringDataNull(password2)) {
-			out.print("确认密码不可为空");
+			out.print(JSONUtil.getInstance().getJSON("0009", "非法操作", null));
+			System.out.println("确认密码不可为空");
 			return;
 		}
 		System.out.println("password2：" + password2);
 		System.out.println("password1：" + password);
 		System.out.println("username1：" + username);
 		if (!password.equals(password2)) {
-			out.print("密码与确认密码不一致");
+			out.print(JSONUtil.getInstance().getJSON("0009", "非法操作", null));
+			System.out.println("密码与确认密码不一致");
 			return;
 		}
 
@@ -89,29 +98,35 @@ public class UserRegister extends HttpServlet {
 		String nickname = username;
 		// }
 
-		User user = new User(0, username, password, phone, nickname, "",
+		MD5 md5 = new MD5(password);
+
+		User user = new User(0, username, md5.compute(), phone, nickname, "",
 				new Date(), new Date());
 
 		try {
 			if (!user.getUserName(username)) {
-				out.print("账号已注册，请更换账号");
+				out.print(JSONUtil.getInstance().getJSON("0002", "账号已注册，请更换账号",
+						null));
 				return;
 			} else {
 				System.out.println("账号进行注册中");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			out.print("数据库异常，请稍后再试");
+			out.print(JSONUtil.getInstance().getJSON("0002", "数据库异常，请稍后再试",
+					null));
 			System.out.println("数据库异常，请稍后再试");
 		}
 
 		try {
 			user.save();
-			out.print("注册成功");
+			String content = "注册成功";
+			out.print(JSONUtil.getInstance().getJSON("0001", "注册成功", content));
 			System.out.println("注册成功");
 		} catch (SQLException e) {
 			e.printStackTrace();
-			out.print("数据库异常，请稍后再试");
+			out.print(JSONUtil.getInstance().getJSON("0002", "数据库异常，请稍后再试",
+					null));
 			System.out.println("数据库异常，请稍后再试");
 		}
 	}

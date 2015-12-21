@@ -46,7 +46,7 @@ public class User implements Serializable {
 	private String password;
 	private String phone;
 	// private String auth;
-	private String name;
+	private String nickname;
 	// private String pid;
 	private String addr;
 	private Date rdate;
@@ -93,11 +93,11 @@ public class User implements Serializable {
 	// }
 
 	public String getName() {
-		return name;
+		return nickname;
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.nickname = name;
 	}
 
 	// public String getPid() {
@@ -144,7 +144,7 @@ public class User implements Serializable {
 		this.username = username;
 		this.password = password;
 		this.phone = phone;
-		this.name = name;
+		this.nickname = name;
 		this.addr = addr;
 		this.rdate = rdate;
 		this.cpdate = cpdate;

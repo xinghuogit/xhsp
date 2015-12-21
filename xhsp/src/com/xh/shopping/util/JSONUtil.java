@@ -87,4 +87,53 @@ public class JSONUtil {
 		return json.toJson(this);
 	}
 
+	/**
+	 * @ret 0001 获取数据成功
+	 * @param body
+	 *            返回的数据
+	 * @return
+	 * 
+	 */
+	public String getJSON0001(Object body) {
+		setRet("0001");
+		setMsg("成功");
+
+		setObject(body);
+
+		Gson json = new Gson();
+		return json.toJson(this);
+	}
+
+	/**
+	 * @ret 0002 失败
+	 * @param msg
+	 *            失败的原因
+	 * @return
+	 */
+	public String getJSON0002(String msg) {
+		setRet("0002");
+		setMsg(msg);
+
+		Gson json = new Gson();
+		return json.toJson(this);
+	}
+
+	/**
+	 * @ret 0009 失败
+	 * @param msg
+	 *            失败的原因(一般都是因为数据库连接失败)
+	 * @return
+	 */
+	public String getJSON0009(String msg) {
+		setRet("0009");
+		setMsg(msg);
+
+		Gson json = new Gson();
+		if (Constants.ISSQLEXCEPTION) {
+			return json.toJson(this);
+		} else {
+			return null;
+		}
+	}
+
 }

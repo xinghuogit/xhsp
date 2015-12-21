@@ -12,6 +12,15 @@
 		<servlet-name>UserRegister</servlet-name>
 		<url-pattern>/userregister.json</url-pattern>
 	</servlet-mapping>
+	
+		<servlet>
+		<servlet-name>Login</servlet-name>
+		<servlet-class>com.xh.shopping.action.Login</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Login</servlet-name>
+		<url-pattern>/login.json</url-pattern>
+	</servlet-mapping>
 
 	<!-- 测试Androidhttp和client上传数据获取数据 -->
 	<servlet>
