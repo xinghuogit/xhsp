@@ -68,25 +68,27 @@ public class UserRegister extends HttpServlet {
 		// String addr = request.getParameter("addr");
 
 		if (StringUtil.isStringDataNull(username)) {
-			out.print(JSONUtil.getInstance().getJSON("0009", "非法操作", null));
+			out.print(JSONUtil.getInstance().getJSON0002("非法操作：账号为空"));
 			System.out.println("非法操作：账号为空");
 			return;
 		}
 		if (StringUtil.isStringDataNull(password)) {
-			out.print(JSONUtil.getInstance().getJSON("0009", "非法操作", null));
+			out.print(JSONUtil.getInstance().getJSON0002("非法操作：密码为空"));
 			System.out.println("非法操作：密码为空");
 			return;
 		}
 		if (StringUtil.isStringDataNull(password2)) {
-			out.print(JSONUtil.getInstance().getJSON("0009", "非法操作", null));
+			out.print(JSONUtil.getInstance().getJSON0002("非法操作,确认密码不可为空"));
 			System.out.println("确认密码不可为空");
 			return;
 		}
+
 		System.out.println("password2：" + password2);
 		System.out.println("password1：" + password);
 		System.out.println("username1：" + username);
+
 		if (!password.equals(password2)) {
-			out.print(JSONUtil.getInstance().getJSON("0009", "非法操作", null));
+			out.print(JSONUtil.getInstance().getJSON0002("非法操作,密码与确认密码不一致"));
 			System.out.println("密码与确认密码不一致");
 			return;
 		}
@@ -105,28 +107,25 @@ public class UserRegister extends HttpServlet {
 
 		try {
 			if (!user.getUserName(username)) {
-				out.print(JSONUtil.getInstance().getJSON("0002", "账号已注册，请更换账号",
-						null));
+				out.print(JSONUtil.getInstance().getJSON0002("账号已注册，请更换账号"));
 				return;
 			} else {
 				System.out.println("账号进行注册中");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			out.print(JSONUtil.getInstance().getJSON("0002", "数据库异常，请稍后再试",
-					null));
+			out.print(JSONUtil.getInstance().getJSON0009("数据库异常，请稍后再试"));
 			System.out.println("数据库异常，请稍后再试");
 		}
 
 		try {
 			user.save();
 			String content = "注册成功";
-			out.print(JSONUtil.getInstance().getJSON("0001", "注册成功", content));
+			out.print(JSONUtil.getInstance().getJSON0001(content));
 			System.out.println("注册成功");
 		} catch (SQLException e) {
 			e.printStackTrace();
-			out.print(JSONUtil.getInstance().getJSON("0002", "数据库异常，请稍后再试",
-					null));
+			out.print(JSONUtil.getInstance().getJSON0009("数据库异常，请稍后再试"));
 			System.out.println("数据库异常，请稍后再试");
 		}
 	}
