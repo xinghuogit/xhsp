@@ -42,8 +42,7 @@ public class UserRegister extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		response.setCharacterEncoding("utf-8");
 		PrintWriter out = response.getWriter();
-		out.print(JSONUtil.getInstance()
-				.getJSON("0009", "非法操作,请使用POST请求", null));
+		out.print(JSONUtil.getInstance().getJSON0002("非法操作,请使用POST请求"));
 		System.out.println("非法操作,请使用POST请求");
 	}
 

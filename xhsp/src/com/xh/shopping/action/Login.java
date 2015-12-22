@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.xh.shopping.model.User;
 import com.xh.shopping.util.ExistUtil;
 import com.xh.shopping.util.JSONUtil;
+import com.xh.shopping.util.MD5;
 import com.xh.shopping.util.StringUtil;
 
 /**
@@ -45,8 +46,7 @@ public class Login extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		response.setCharacterEncoding("utf-8");
 		PrintWriter out = response.getWriter();
-		out.print(JSONUtil.getInstance()
-				.getJSON("0009", "非法操作,请使用POST请求", null));
+		out.print(JSONUtil.getInstance().getJSON0002("非法操作,请使用POST请求"));
 		System.out.println("非法操作,请使用POST请求");
 	}
 
@@ -76,10 +76,12 @@ public class Login extends HttpServlet {
 			return;
 		}
 
+		MD5 md5 = new MD5(password);
+
 		try {
 			User user = ExistUtil.getUser(username);
 			if (user != null) {
-				if (password.equals(user.getPassword())) {
+				if (md5.compute().equals(user.getPassword())) {
 					out.print(JSONUtil.getInstance().getJSON0001(user));
 					System.out.println("登录成功");
 				} else {

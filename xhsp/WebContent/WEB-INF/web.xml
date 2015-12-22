@@ -21,6 +21,15 @@
 		<servlet-name>Login</servlet-name>
 		<url-pattern>/login.json</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ChangePassword</servlet-name>
+		<servlet-class>com.xh.shopping.action.ChangePassword</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ChangePassword</servlet-name>
+		<url-pattern>/changepassword.json</url-pattern>
+	</servlet-mapping>
 
 	<!-- 测试Androidhttp和client上传数据获取数据 -->
 	<servlet>
