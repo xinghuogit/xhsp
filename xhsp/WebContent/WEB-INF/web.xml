@@ -12,8 +12,8 @@
 		<servlet-name>UserRegister</servlet-name>
 		<url-pattern>/userregister.json</url-pattern>
 	</servlet-mapping>
-	
-		<servlet>
+
+	<servlet>
 		<servlet-name>Login</servlet-name>
 		<servlet-class>com.xh.shopping.action.Login</servlet-class>
 	</servlet>
