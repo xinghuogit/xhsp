@@ -10,8 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.xh.shopping.model.User;
+import com.xh.shopping.util.ExistUtil;
 import com.xh.shopping.util.HeaderAuthUtil;
 import com.xh.shopping.util.JSONUtil;
+import com.xh.shopping.util.MD5;
+import com.xh.shopping.util.StringUtil;
 
 /**
  * Servlet implementation class ChangePassword
@@ -19,6 +23,7 @@ import com.xh.shopping.util.JSONUtil;
 @WebServlet("/ChangePassword")
 public class ChangePassword extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private User user;
 
 	public ChangePassword() {
 		super();
@@ -46,6 +51,7 @@ public class ChangePassword extends HttpServlet {
 		String[] namepwd;
 		String headerAuth;
 
+		// 验证头部
 		Enumeration<String> headerNames = request.getHeaderNames();
 		// 遍历头部信息集
 		while (headerNames.hasMoreElements()) {
@@ -75,10 +81,59 @@ public class ChangePassword extends HttpServlet {
 		System.out.println("验证username:" + username + "验证\npassword:"
 				+ password);
 
-		// String
+		try {
+			user = ExistUtil.getUser(username);
+			if (user != null) {
+				if (password.equals(user.getPassword())) {
+					// out.print(JSONUtil.getInstance().getJSON0001(user));
+					System.out.println("Auth账号密码验证通过");
+				} else {
+					out.print(JSONUtil.getInstance().getJSON0002(
+							"非法操作：Auth密码错误"));
+					System.out.println("非法操作：Auth密码错误");
+					return;
+				}
+			} else {
+				out.print(JSONUtil.getInstance().getJSON0002(
+						"非法操作：Auth账号密码寻找不到账号"));
+				System.out.println("1.非法操作：Auth账号密码寻找不到账号;/n/r2.有可能数据库异常");
+				return;
+			}
+		} catch (Exception e) {
+			out.print(JSONUtil.getInstance().getJSON0009("数据库异常，请稍后再试"));
+			System.out.println("数据库异常，请稍后再试");
+		}
 
-		// String username = request.getParameter("username");
-		// String password = request.getParameter("password");
+		// 验证原密码 新密码确认密码
+		String passwor = request.getParameter("password").trim();
+		String passwor1 = request.getParameter("password1").trim();
+		String passwor2 = request.getParameter("password2").trim();
+
+		if (StringUtil.isStringDataNull(passwor)
+				|| StringUtil.isStringDataNull(passwor1)
+				|| StringUtil.isStringDataNull(passwor2)) {
+			out.print(JSONUtil.getInstance().getJSON0002("非法操作：原密码、新密码、确认密码为空"));
+			System.out.println("非法操作：原密码、新密码、确认密码为空");
+			return;
+		}
+
+		MD5 md5 = new MD5(passwor);
+		if (md5.compute().equals(user.getPassword())) {
+			System.out.println("原密码验证通过");
+		} else {
+			out.print(JSONUtil.getInstance().getJSON0002("原密码错误，请重填密码"));
+			System.out.println("原密码验证错误");
+			return;
+		}
+
+		if (!passwor1.equals(passwor2)) {
+			out.print(JSONUtil.getInstance().getJSON0002("非法操作：新密码、确认密码不同"));
+			System.out.println("非法操作：新密码、确认密码不同");
+			return;
+		} else {
+			
+		}
+
 	}
 
 }

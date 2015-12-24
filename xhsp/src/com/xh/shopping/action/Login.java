@@ -124,8 +124,4 @@ public class Login extends HttpServlet {
 
 	}
 
-	private void getUserInfo(User user) {
-
-	}
-
 }
