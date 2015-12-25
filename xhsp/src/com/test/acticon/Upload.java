@@ -43,7 +43,7 @@ public class Upload extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		Part part = request.getPart("file");
-		part.write("end.jpg");
+		part.write("end" + System.currentTimeMillis() + ".jpg");
 
 		response.setContentType("text/html;charset=utf-8");
 		response.setCharacterEncoding("utf-8");
