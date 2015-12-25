@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.xh.shopping.jdbc.ExistUtil;
 import com.xh.shopping.model.User;
-import com.xh.shopping.util.ExistUtil;
 import com.xh.shopping.util.JSONUtil;
 import com.xh.shopping.util.MD5;
 import com.xh.shopping.util.StringUtil;
