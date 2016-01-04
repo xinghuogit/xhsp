@@ -13,7 +13,7 @@
  * @修改内容：
  ************************************************************************************************/
 
-package com.xh.shopping.util;
+package com.xh.shopping.jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

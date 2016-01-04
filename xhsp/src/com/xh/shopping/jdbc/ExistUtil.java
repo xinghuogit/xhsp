@@ -12,7 +12,7 @@
  * 修   改 人：
  * 修改内容：
  ************************************************************************************************/
-package com.xh.shopping.util;
+package com.xh.shopping.jdbc;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -34,7 +34,8 @@ public class ExistUtil {
 
 	public static boolean isUser(String username) throws SQLException {
 		try {
-			String sql = "select * from ruser";
+			String sql = "select * from ruser where username = '" + username
+					+ "'";
 			connection = (Connection) DB.getConnection();
 			rs = DB.executeQuery(connection, sql);
 			while (rs.next()) {

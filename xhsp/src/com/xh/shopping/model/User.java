@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.xh.shopping.util.DB;
+import com.xh.shopping.jdbc.DB;
 
 /**
  * @文件名称：User.java 用户注册bean

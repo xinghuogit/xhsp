@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.mysql.jdbc.Connection;
+import com.xh.shopping.jdbc.DB;
 import com.xh.shopping.model.User;
-import com.xh.shopping.util.DB;
 import com.xh.shopping.util.JSONUtil;
 import com.xh.shopping.util.MD5;
 import com.xh.shopping.util.StringUtil;
