@@ -45,10 +45,14 @@ public class DB {
 	public static Connection getConnection() throws SQLException {
 		Connection connection = null;
 		// try {
+		// connection = DriverManager
+		// .getConnection(
+		// "jdbc:mysql://rds861y2gckfb4dvlus4.mysql.rds.aliyuncs.com:3306/xhspsql",
+		// "xhspsql", "liLJM371916");//阿里云数据库
 		connection = DriverManager
 				.getConnection(
-						"jdbc:mysql://rds861y2gckfb4dvlus4.mysql.rds.aliyuncs.com:3306/xhspsql",
-						"xhspsql", "liLJM371916");
+						"jdbc:mysql://xhmysql-li160.tenxcloud.net:56956/xhspsql",
+						"admin", "Cb7kUzkbYxf4");// 时速云数据库
 		// } catch (SQLException e) {
 		// e.printStackTrace();
 		// }
