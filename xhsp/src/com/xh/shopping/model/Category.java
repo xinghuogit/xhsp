@@ -14,14 +14,17 @@
  ************************************************************************************************/
 package com.xh.shopping.model;
 
+import com.xh.shopping.dao.CategoryDAO;
+
 /**
  * @filename 文件名称：Category.java
- * @contents 内容摘要：商品类别 bean
+ * @contents 内容摘要：商品类别 bean 以及逻辑层
  */
 public class Category {
 	private int id;
 	private String name;
 	private String descr;
+	private int orderby;//孙旭
 	private int pid; // 父id
 	private boolean leaf; // 是否有子类别 0表示leaf 1表示非leaf
 	private int grads;// 级别
@@ -50,6 +53,16 @@ public class Category {
 		this.descr = descr;
 	}
 
+	
+	
+	public int getOrderby() {
+		return orderby;
+	}
+
+	public void setOrderby(int orderby) {
+		this.orderby = orderby;
+	}
+
 	public int getPid() {
 		return pid;
 	}
@@ -74,4 +87,20 @@ public class Category {
 		this.grads = grads;
 	}
 
+	public static void add(Category category) {
+		CategoryDAO.save(category);
+	}
+
+	public static void addTop(String name, String descr, int orderby) {
+		Category category = new Category();
+		category.setId(-1);
+		category.setName(name);
+		category.setDescr(descr);
+		category.setOrderby(orderby);
+		category.setPid(0);
+		category.setLeaf(true);
+		category.setGrads(1);
+		// CategoryDAO.save(category);
+		add(category);
+	}
 }

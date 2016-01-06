@@ -22,9 +22,10 @@ import com.xh.shopping.model.Category;
 
 /**
  * @filename 文件名称：CategoryDAO.java
- * @contents 内容摘要：CategoryDAO层  和数据库打交道
+ * @contents 内容摘要：CategoryDAO层 和数据库打交道
  */
 public class CategoryDAO {
+
 	/**
 	 * 保存数据
 	 */
@@ -33,11 +34,17 @@ public class CategoryDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = DB.getConnection();
-			String sql = "insert into category values (?, ?, ?, ?, ?, ?)";
+			String sql = "";
+			if (category.getId() == -1) {
+				sql = "insert into category values (null, ?, ?, ?, ?, ?, ?)";
+			} else {
+				sql = "insert into category values (" + category.getId()
+						+ ", ?, ?, ?, ?, ?, ?)";
+			}
 			ps = DB.getPStatement(conn, sql);
-			ps.setInt(1, category.getId());
-			ps.setString(2, category.getName());
-			ps.setString(3, category.getDescr());
+			ps.setString(1, category.getName());
+			ps.setString(2, category.getDescr());
+			ps.setInt(3, category.getOrderby());
 			ps.setInt(4, category.getPid());
 			ps.setInt(5, category.isLeaf() ? 0 : 1);
 			ps.setInt(6, category.getGrads());

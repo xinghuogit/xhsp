@@ -21,6 +21,7 @@ create table category
 id int primary key auto_increment,
 name varchar(255),
 descr varchar(255),
+orderby int,
 pid int,
 isleaf int, #0表示leaf 1表示非leaf
 grade int
