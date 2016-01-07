@@ -14,6 +14,9 @@
  ************************************************************************************************/
 package com.xh.shopping.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.xh.shopping.dao.CategoryDAO;
 
 /**
@@ -24,7 +27,7 @@ public class Category {
 	private int id;
 	private String name;
 	private String descr;
-	private int orderby;//孙旭
+	private int orderby;// 孙旭
 	private int pid; // 父id
 	private boolean leaf; // 是否有子类别 0表示leaf 1表示非leaf
 	private int grads;// 级别
@@ -53,8 +56,6 @@ public class Category {
 		this.descr = descr;
 	}
 
-	
-	
 	public int getOrderby() {
 		return orderby;
 	}
@@ -87,20 +88,85 @@ public class Category {
 		this.grads = grads;
 	}
 
+	/**
+	 * 添加一个类别到数据库
+	 * 
+	 * @param category
+	 */
 	public static void add(Category category) {
 		CategoryDAO.save(category);
 	}
 
+	/**
+	 * 添加根类别
+	 * 
+	 * @param name
+	 *            类别名称
+	 * @param descr
+	 *            备注
+	 * @param orderby
+	 *            排序
+	 */
 	public static void addTop(String name, String descr, int orderby) {
-		Category category = new Category();
-		category.setId(-1);
-		category.setName(name);
-		category.setDescr(descr);
-		category.setOrderby(orderby);
-		category.setPid(0);
-		category.setLeaf(true);
-		category.setGrads(1);
-		// CategoryDAO.save(category);
-		add(category);
+		// Category category = new Category();
+		// category.setId(-1);
+		// category.setName(name);
+		// category.setDescr(descr);
+		// category.setOrderby(orderby);
+		// category.setPid(0);
+		// category.setLeaf(true);
+		// category.setGrads(1);
+		// // CategoryDAO.save(category);
+		// add(category);
+		addChild(name, descr, orderby, 0);
+	}
+
+	/**
+	 * 添加子类别
+	 * 
+	 * @param name
+	 *            类别名称
+	 * @param descr
+	 *            备注
+	 * @param orderby
+	 *            排序
+	 * @param pid
+	 *            父id
+	 */
+	public static void addChild(String name, String descr, int orderby, int pid) {
+		CategoryDAO.addChild(name, descr, orderby, pid);
+	}
+
+	/**
+	 * 添加子类别
+	 * 
+	 * @param category
+	 *            实例化一个Category 然后调用CategoryDAO 方法addChild
+	 */
+	public void addChild(Category category) {
+		System.out.println("id:"+id+"\n"+"getName:"+category.getName());
+		CategoryDAO.addChild(category.getName(), category.getDescr(),
+				category.getOrderby(), id);
+	}
+
+	/**
+	 * 根据某一个类别ID 获取类别信息
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public static Category loadById(int id) {
+		return CategoryDAO.loadById(id);
+	}
+
+	/**
+	 * 获取所有类别数据
+	 * 
+	 * @return
+	 */
+	public static List<Category> getCategories() {
+		List<Category> categories = new ArrayList<Category>();
+		CategoryDAO.getCategories(categories, 0);
+		return categories;
 	}
 }

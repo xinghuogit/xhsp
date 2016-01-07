@@ -49,10 +49,9 @@ public class DB {
 		// .getConnection(
 		// "jdbc:mysql://rds861y2gckfb4dvlus4.mysql.rds.aliyuncs.com:3306/xhspsql",
 		// "xhspsql", "liLJM371916");//阿里云数据库
-		connection = DriverManager
-				.getConnection(
-						"jdbc:mysql://xhmysql-li160.tenxcloud.net:56956/xhspsql",
-						"admin", "Cb7kUzkbYxf4");// 时速云数据库
+		connection = DriverManager.getConnection(
+				"jdbc:mysql://xhmysql-li160.tenxcloud.net:56956/xhspsql",
+				"admin", "Cb7kUzkbYxf4");// 时速云数据库
 		// } catch (SQLException e) {
 		// e.printStackTrace();
 		// }
@@ -150,6 +149,26 @@ public class DB {
 			e.printStackTrace();
 		}
 		return resultSetKey;
+	}
+
+	/**
+	 * 执行一条更新sql语句
+	 * @param connection
+	 * @param sql
+	 * @return
+	 */
+	public static int executeUpdata(Connection conn, String sql) {
+		int ret = 0;
+		Statement statement = null;
+		try {
+			statement = getStatement(conn);
+			ret = statement.executeUpdate(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(statement);
+		}
+		return ret;
 	}
 
 	/**

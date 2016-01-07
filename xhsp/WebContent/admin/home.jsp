@@ -65,7 +65,11 @@
 					</ul>
 					<ul>
 
-						<li><a _href="car.html" href="javascript:void(0)">类别列表</a></li>
+						<li><a _href="categorylist.jsp" href="javascript:void(0)">类别列表</a></li>
+					</ul>
+					<ul>
+
+						<li><a _href="script/TestTV20.html" href="javascript:void(0)">JS类别列表</a></li>
 					</ul>
 				</dd>
 			</dl>
