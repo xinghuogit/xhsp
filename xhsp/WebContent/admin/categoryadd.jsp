@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page
-	import="java.util.*, java.sql.*, com.xh.shopping.dao.CategoryDAO,com.xh.shopping.model.Category"%>
+	import="java.util.*,java.sql.*,com.xh.shopping.dao.CategoryDAO,com.xh.shopping.model.Category"%>
 <%
 	request.setCharacterEncoding("utf-8");
 

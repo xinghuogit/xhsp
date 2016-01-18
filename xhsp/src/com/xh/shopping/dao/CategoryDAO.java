@@ -86,8 +86,11 @@ public class CategoryDAO {
 			// 获取父类别等级，+1等于当前子类别等级
 			rs = DB.executeQuery(conn, "select * from category where id = "
 					+ pid);
-			rs.next();
-			int grade = rs.getInt("grade");
+			int grade = 0;
+			if (rs.next()) {
+				grade = rs.getInt("grade");
+			}
+
 			// 存储子类别
 			String sql = "insert into category values (null, ?, ?, ?, ?, ?, ?)";
 			ps = DB.getPStatement(conn, sql);

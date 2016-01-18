@@ -26,3 +26,10 @@ pid int,
 isleaf int, #0表示leaf 1表示非leaf
 grade int
 );
+
+--创建商品信息的表格
+create table product
+(
+id int primary key auto_increment,
+
+);

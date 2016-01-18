@@ -3,7 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page
-	import="java.sql.*, com.xh.shopping.dao.CategoryDAO,com.xh.shopping.model.Category"%>
+	import="java.sql.*,com.xh.shopping.dao.CategoryDAO,com.xh.shopping.model.Category"%>
 
 <%
 	List<Category> categories = Category.getCategories();
@@ -43,6 +43,8 @@
 			<td><%=category.isLeaf()%></td>
 			<td><%=category.getGrads()%></td>
 			<td><a href="categoryadd.jsp?pid=<%=category.getId()%>">添加子类别</a>
+			</td>
+			<td><a href="categoryadd.jsp?id=<%=category.getId()%>">删除该类别</a>
 			</td>
 		</tr>
 		<%

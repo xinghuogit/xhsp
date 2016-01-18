@@ -77,17 +77,21 @@
 
 			<dl id="menu-article">
 				<dt>
-					<i class="Hui-iconfont">&#xe601;</i> 监控管理<i
+					<i class="Hui-iconfont">&#xe601;</i> 产品管理<i
 						class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
 				</dt>
 				<dd>
 					<ul>
 
-						<li><a _href="car.html" href="javascript:void(0)">监控管理</a></li>
+						<li><a _href="productlist.jsp" href="javascript:void(0)">产品列表</a></li>
 					</ul>
 					<ul>
 
-						<li><a _href="car.html" href="javascript:void(0)">监控管理</a></li>
+						<li><a _href="productadd.jsp" href="javascript:void(0)">产品添加</a></li>
+					</ul>
+					<ul>
+
+						<li><a _href="productsearch.jsp" href="javascript:void(0)">产品搜索</a></li>
 					</ul>
 				</dd>
 			</dl>
