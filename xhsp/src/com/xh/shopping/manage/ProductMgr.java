@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.xh.shopping.dao.ProductDAO;
+import com.xh.shopping.dao.ProductMySQLDAO;
 import com.xh.shopping.model.Product;
 
 /**
@@ -26,7 +27,23 @@ import com.xh.shopping.model.Product;
  * @下面方法用动态，而不用静态主要是为了提供缓存；用空间换取时间。
  */
 public class ProductMgr {
+	private static ProductMgr pm = null;
 	ProductDAO dao = null;
+
+	static {
+		if (pm == null) {
+			pm = new ProductMgr();
+			// 要去配置文件查看是否使用哪个数据库
+			pm.setDao(new ProductMySQLDAO());
+		}
+	}
+
+	private ProductMgr() {
+	};
+
+	public static ProductMgr getInstance() {
+		return pm;
+	}
 
 	/**
 	 * 返回全部商品全部列表数据
@@ -47,7 +64,22 @@ public class ProductMgr {
 	 * @return
 	 */
 	public List<Product> getProducts(int pageNo, int pageSize) {
-		return null;
+		return dao.getProducts(pageNo, pageSize);
+	}
+
+	/**
+	 * 返回指定页码指定数量商品列表数据and商品页码总数
+	 * 
+	 * @param products
+	 *            商品存入到的泛型
+	 * @param pageNo
+	 *            查询页数
+	 * @param pageSize
+	 *            查询数量
+	 * @return 返回商品页码总数
+	 */
+	public int getProducts(List<Product> products, int pageNo, int pageSize) {
+		return dao.getProducts(products, pageNo, pageSize);
 	}
 
 	/**
@@ -112,5 +144,23 @@ public class ProductMgr {
 	 */
 	public boolean updateProduct(Product p) {
 		return false;
+	}
+
+	/**
+	 * 添加一个商品
+	 * 
+	 * @param p
+	 * @return
+	 */
+	public boolean addProduct(Product p) {
+		return dao.addProduct(p);
+	};
+
+	public ProductDAO getDao() {
+		return dao;
+	}
+
+	public void setDao(ProductDAO dao) {
+		this.dao = dao;
 	}
 }

@@ -97,11 +97,25 @@ public interface ProductDAO {
 	 * @return
 	 */
 	public boolean updateProduct(Product p);
-	
+
 	/**
 	 * 添加一个商品
+	 * 
 	 * @param p
 	 * @return
 	 */
 	public boolean addProduct(Product p);
+
+	/**
+	 * 返回指定页码指定数量商品列表数据and商品页码总数
+	 * 
+	 * @param products
+	 *            商品存入到的泛型
+	 * @param pageNo
+	 *            查询页数
+	 * @param pageSize
+	 *            查询数量
+	 * @return 返回商品页码总数
+	 */
+	public int getProducts(List<Product> products, int pageNo, int pageSize);
 }

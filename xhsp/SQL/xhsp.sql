@@ -31,5 +31,10 @@ grade int
 create table product
 (
 id int primary key auto_increment,
-
+name varchar(255),
+descr varchar(255),
+normalPrice double,
+memberPrice double,
+pdate datetime,
+categoryId int
 );
