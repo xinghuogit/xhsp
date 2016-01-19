@@ -54,7 +54,8 @@
 			<td><%=product.getMemberPrice()%></td>
 			<td><%=product.getPdate()%></td>
 			<td><%=product.getCategoryId()%></td>
-			<td><a href="categoryadd.jsp?pid=<%=product.getId()%>">修改商品</a>
+			<td><%=product.getCategoryId()%></td>
+			<td><a href="productmodify.jsp?id=<%=product.getId()%>">修改商品</a>
 			</td>
 			<td><a href="categoryadd.jsp?id=<%=product.getId()%>">删除商品</a></td>
 		</tr>

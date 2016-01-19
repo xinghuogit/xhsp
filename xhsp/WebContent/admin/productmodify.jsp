@@ -6,6 +6,13 @@
 <%
 	request.setCharacterEncoding("utf-8");
 
+	String strId = request.getParameter("id");
+	Product p = null;
+	if (strId != null && !"".equals(strId)) {
+		int id = Integer.parseInt(strId);
+		p = ProductMgr.getInstance().loadById(id);
+	}
+
 	String action = request.getParameter("action");
 	if (action != null && action.trim().equals("add")) {
 		String name = request.getParameter("name");
@@ -17,7 +24,7 @@
 		int categoryId = Integer.parseInt(request
 				.getParameter("categoryId"));
 
-		Product p = new Product();
+		
 		p.setId(-1);
 		p.setName(name);
 		p.setDescr(descr);
@@ -34,11 +41,25 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>添加商品</title>
+<title>修改产品</title>
+<script type="text/javascript">
+	var arrLeaf = new Array();
+	<!--
+	function checkDate() {
+		if (arrLeaf[document.form.categoryId.selectedIndex] != "leaf") {
+			alert("不能选择非叶子节点");
+			document.form.categoryId.focus();
+			return false;
+		}
+		return true;
+	}
+	-->
+</script>
 </head>
 <body>
-	<form action="productadd.jsp" method="post">
-		<input type="hidden" name="action" value="add"> 
+	<form action="productadd.jsp" method="post"
+		onsubmit="return checkdate()" name="form">
+		<input type="hidden" name="action" value="add">
 		<table>
 			<tr>
 				<td>商品名称：</td>

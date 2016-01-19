@@ -43,14 +43,25 @@ public interface ProductDAO {
 	public List<Product> getProducts(int pageNo, int pageSize);
 
 	/**
+	 * 返回指定页码指定数量商品列表数据and商品页码总数
+	 * 
+	 * @param products
+	 *            商品存入到的泛型
+	 * @param pageNo
+	 *            查询页数
+	 * @param pageSize
+	 *            查询数量
+	 * @return 返回商品页码总数
+	 */
+	public int getProducts(List<Product> products, int pageNo, int pageSize);
+
+	/**
 	 * 搜索商品
 	 * 
-	 * @param categoryId
+	 * @param idArray
 	 *            商品类型ID
-	 * @param name
-	 *            商品名字
-	 * @param descr
-	 *            商品描述
+	 * @param keyword
+	 *            关键字
 	 * @param lowNormalPrice
 	 *            商品正常价格（低价格）
 	 * @param highNormalPrice
@@ -69,8 +80,38 @@ public interface ProductDAO {
 	 *            查询数量
 	 * @return
 	 */
-	public List<Product> searchProducts(int[] categoryId, String name,
-			String descr, double lowNormalPrice, double highNormalPrice,
+	public List<Product> searchProducts(int[] idArray, String keyword,
+			double lowNormalPrice, double highNormalPrice,
+			double lowMemberPrice, double highMemberPrice, Date startDate,
+			Date endDate, int pageNo, int pageSize);
+
+	/**
+	 * 返回搜索商品and商品页码总数
+	 * 
+	 * @param idArray
+	 *            商品类型ID
+	 * @param keyword
+	 *            关键字
+	 * @param lowNormalPrice
+	 *            商品正常价格（低价格）
+	 * @param highNormalPrice
+	 *            商品正常价格（高价格）
+	 * @param lowMemberPrice
+	 *            商品会员价格（低价格）
+	 * @param highMemberPrice
+	 *            商品会员价格（高价格）
+	 * @param startDate
+	 *            开始时间
+	 * @param endDate
+	 *            结束时间
+	 * @param pageNo
+	 *            查询页数
+	 * @param pageSize
+	 *            查询数量
+	 * @return
+	 */
+	public int searchProducts(List<Product> products, int[] idArray,
+			String keyword, double lowNormalPrice, double highNormalPrice,
 			double lowMemberPrice, double highMemberPrice, Date startDate,
 			Date endDate, int pageNo, int pageSize);
 
@@ -107,15 +148,11 @@ public interface ProductDAO {
 	public boolean addProduct(Product p);
 
 	/**
-	 * 返回指定页码指定数量商品列表数据and商品页码总数
+	 * 根据商品id寻找商品的信息
 	 * 
-	 * @param products
-	 *            商品存入到的泛型
-	 * @param pageNo
-	 *            查询页数
-	 * @param pageSize
-	 *            查询数量
-	 * @return 返回商品页码总数
+	 * @param id
+	 * @return
 	 */
-	public int getProducts(List<Product> products, int pageNo, int pageSize);
+	public Product loadById(int id);
+
 }

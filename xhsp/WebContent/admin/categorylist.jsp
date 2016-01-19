@@ -44,8 +44,19 @@
 			<td><%=category.getGrads()%></td>
 			<td><a href="categoryadd.jsp?pid=<%=category.getId()%>">添加子类别</a>
 			</td>
+			<td><a href="categoryadd.jsp?pid=<%=category.getId()%>">修改该类别</a>
+			</td>
+			<%
+				if (category.isLeaf()) {
+			%>
 			<td><a href="categoryadd.jsp?id=<%=category.getId()%>">删除该类别</a>
 			</td>
+			<td><a href="productadd.jsp?categoryId=<%=category.getId()%>">在该类别下添加商品</a>
+			</td>
+			<%
+				}
+			%>
+
 		</tr>
 		<%
 			}
