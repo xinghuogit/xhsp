@@ -1,3 +1,4 @@
+<%@page import="com.xh.shopping.model.Category"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
@@ -19,7 +20,7 @@
 <%
 	List<Product> products = new ArrayList<Product>();
 	int pageCount = ProductMgr.getInstance().getProducts(products,
-			pageno, PAGE_SIZE);
+			pageno, PAGE_SIZE, true);
 	if (pageno > pageCount) {
 		pageno = pageCount;
 	}
@@ -53,8 +54,7 @@
 			<td><%=product.getNormalPrice()%></td>
 			<td><%=product.getMemberPrice()%></td>
 			<td><%=product.getPdate()%></td>
-			<td><%=product.getCategoryId()%></td>
-			<td><%=product.getCategoryId()%></td>
+			<td><%=product.getCategory().getName()%></td>
 			<td><a href="productmodify.jsp?id=<%=product.getId()%>">修改商品</a>
 			</td>
 			<td><a href="categoryadd.jsp?id=<%=product.getId()%>">删除商品</a></td>

@@ -169,4 +169,8 @@ public class Category {
 		CategoryDAO.getCategories(categories, 0);
 		return categories;
 	}
+	
+	public static boolean isLeaf(int id){
+		return false;
+	}
 }

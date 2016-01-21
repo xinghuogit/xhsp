@@ -1,3 +1,5 @@
+<%@page import="java.net.URLDecoder"%>
+<%@page import="java.net.URLEncoder"%>
 <%@page import="java.util.Date"%>
 <%@page import="com.xh.shopping.dao.CategoryDAO"%>
 <%@page import="com.xh.shopping.model.Category"%>
@@ -11,6 +13,17 @@
 <%!private static final int PAGE_SIZE = 3;%>
 <%
 	List<Category> categories = Category.getCategories();
+	List<Product> products= null;
+	int pageNo=1;
+	int pageCount=0;
+	String strCategoryId=null;
+	String keyword=null;
+	double lowNormalPrice=-1;
+	double highNormalPrice=-1;
+	double lowMemberPrice=-1;
+	double highMemberPrice=-1;
+	String strStartDate=null;
+	String strEndDate=null;
 %>
 <%
 	request.setCharacterEncoding("utf-8");
@@ -18,52 +31,60 @@
 	String action = request.getParameter("action");
 	//复杂搜索
 	if (action != null && action.trim().equals("complexsearch")) {
-		int pageNo=1;
 		String strPageNo = request.getParameter("pageNo");
 		
 		if(strPageNo!=null && !"".equals(strPageNo)&&!"0".equals(strPageNo) ){
-	pageNo = Integer.parseInt(strPageNo);
+			pageNo = Integer.parseInt(strPageNo);
 		}
 		
-		int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+		strCategoryId = request.getParameter("categoryId");
 		int[] idArray;
-		if(categoryId ==0){
-	idArray=null;
+		if(strCategoryId == null && "".equals(strCategoryId.trim())){
+			idArray=null;
 		}else{
-	idArray = new int[1] ;
-	idArray[0]=categoryId;
+			String[] strCategoryIds = request.getParameterValues("categoryId");
+			idArray = new int[strCategoryIds.length];
+			for(int i = 0; i<strCategoryIds.length; i++){
+				idArray[i] = Integer.parseInt(strCategoryIds[i]);
+			}
+		}
+		System.out.println("request.getMethod()"+request.getMethod());
+		
+		if(request.getMethod().equals("GET")){
+			keyword = new String(request.getParameter("keyword").getBytes("ISO-8859-1"),"utf-8");
+		}else if(request.getMethod().equals("POST")){
+			keyword= request.getParameter("keyword");
 		}
 		
-		String keyword = request.getParameter("keyword");
 	
-		double lowNormalPrice = Double.parseDouble(request
+		lowNormalPrice = Double.parseDouble(request
 		.getParameter("lowNormalPrice"));
-		double highNormalPrice = Double.parseDouble(request
+		highNormalPrice = Double.parseDouble(request
 		.getParameter("highNormalPrice"));
-		double lowMemberPrice = Double.parseDouble(request
+		lowMemberPrice = Double.parseDouble(request
 		.getParameter("lowMemberPrice"));
-		double highMemberPrice = Double.parseDouble(request
+		highMemberPrice = Double.parseDouble(request
 		.getParameter("highMemberPrice"));
 		
 		Timestamp startDate;
-		String strStartDate=request.getParameter("startDate");
+		strStartDate=request.getParameter("startDate");
 		if(strStartDate==null || "".equals(strStartDate.trim())){
-	startDate = null;
+			startDate = null;
 		}else{
 	 		startDate = Timestamp.valueOf(request.getParameter("startDate"));
 		}
 		
 		Timestamp endDate;
-		String strEndDate=request.getParameter("endDate");
+		strEndDate=request.getParameter("endDate");
 		if(strEndDate==null || "".equals(strEndDate.trim())){
-	endDate = null;
+			endDate = null;
 		}else{
-	endDate = Timestamp.valueOf(request.getParameter("endDate"));
+			endDate = Timestamp.valueOf(request.getParameter("endDate"));
 		}
 
 	
-		List<Product> products=new ArrayList<Product>();
-		int pageCount=ProductMgr.getInstance().searchProducts(products,idArray, keyword,
+		products=new ArrayList<Product>();
+		pageCount=ProductMgr.getInstance().searchProducts(products,idArray, keyword,
 		lowNormalPrice, highNormalPrice, lowMemberPrice,
 		highMemberPrice, startDate, endDate, pageNo, PAGE_SIZE);
 		/**	
@@ -73,7 +94,56 @@
 		highMemberPrice, startDate, endDate, pageNo, PAGE_SIZE);*/
 		out.println("搜索商品成功"+products.size());
 %>
+<%
+	}
+%>
+
+
+<%	
+	//处理简单搜索2
+	if (action != null && action.trim().equals("simplexsearch2")) {
+		String strPageNo = request.getParameter("pageNo");
+		
+		if(strPageNo!=null && !"".equals(strPageNo)&&!"0".equals(strPageNo) ){
+			pageNo = Integer.parseInt(strPageNo);
+		}
+		
+		strCategoryId = request.getParameter("categoryId");
+		int[] idArray;
+		if(strCategoryId == null && "".equals(strCategoryId.trim())){
+			idArray=null;
+		}else{
+			String[] strCategoryIds = request.getParameterValues("categoryId");
+			idArray = new int[strCategoryIds.length];
+			for(int i = 0; i<strCategoryIds.length; i++){
+				idArray[i] = Integer.parseInt(strCategoryIds[i]);
+			}
+		}
+		
+		if(request.getMethod().equals("GET")){
+			keyword = new String(request.getParameter("keyword").getBytes("ISO-8859-1"),"utf-8");
+		}else if(request.getMethod().equals("POST")){
+			keyword= request.getParameter("keyword");
+		}
+	
+		products=new ArrayList<Product>();
+		pageCount=ProductMgr.getInstance().searchProducts(products,idArray, keyword, 
+															  -1, -1, -1, -1, 
+															  null, null, pageNo, PAGE_SIZE);
+		/**	
+		int pageCount=0;
+		List<Product> products=ProductMgr.getInstance().searchProducts(idArray, keyword,
+		lowNormalPrice, highNormalPrice, lowMemberPrice,
+		highMemberPrice, startDate, endDate, pageNo, PAGE_SIZE);*/
+		out.println("搜索商品成功"+products.size());
+%>
+<%
+	}
+%>
+
 <!--搜索成功后结果-->
+<%
+if(products!=null && products.size()>0 ){%>
 <center>搜索结果</center>
 <table border="1" align="center">
 	<tr>
@@ -88,7 +158,7 @@
 
 	<%
 		for (Iterator<Product> it = products.iterator(); it.hasNext();) {
-		Product product = it.next();
+			Product product = it.next();
 	%>
 	<tr>
 		<td><%=product.getId()%></td>
@@ -109,8 +179,8 @@
 <center>
 	第<%=pageNo%>页 &nbsp; 共<%=pageCount%>页 &nbsp; <a
 		href="productsearch.jsp?action=<%=action%>
-			&categoryId=<%=categoryId%>
-			&keyword=<%=keyword%>
+			&categoryId=<%=strCategoryId%>
+			&keyword=<%=URLEncoder.encode(keyword, "utf-8")%>
 			&lowNormalPrice=<%=lowNormalPrice%>
 			&highNormalPrice=<%=highNormalPrice%>
 			&lowMemberPrice=<%=lowMemberPrice%>
@@ -120,8 +190,8 @@
 			&pageNo=1">首页</a>&nbsp;
 	<a
 		href="productsearch.jsp?action=<%=action%>
-			&categoryId=<%=categoryId%>
-			&keyword=<%=keyword%>
+			&categoryId=<%=strCategoryId%>
+			&keyword=<%=URLEncoder.encode(keyword, "utf-8")%>
 			&lowNormalPrice=<%=lowNormalPrice%>
 			&highNormalPrice=<%=highNormalPrice%>
 			&lowMemberPrice=<%=lowMemberPrice%>
@@ -132,8 +202,8 @@
 	&nbsp; <a
 		href="productsearch.jsp
 			?action=<%=action%>
-			&categoryId=<%=categoryId%>
-			&keyword=<%=keyword%>
+			&categoryId=<%=strCategoryId%>
+			&keyword=<%=URLEncoder.encode(keyword, "utf-8")%>
 			&lowNormalPrice=<%=lowNormalPrice%>
 			&highNormalPrice=<%=highNormalPrice%>
 			&lowMemberPrice=<%=lowMemberPrice%>
@@ -143,8 +213,8 @@
 			&pageNo=<%=pageNo + 1%>">下一页</a>
 	&nbsp; <a
 		href="productsearch.jsp?action=<%=action%>
-			&categoryId=<%=categoryId%>
-			&keyword=<%=keyword%>
+			&categoryId=<%=strCategoryId%>
+			&keyword=<%=URLEncoder.encode(keyword, "utf-8")%>
 			&lowNormalPrice=<%=lowNormalPrice%>
 			&highNormalPrice=<%=highNormalPrice%>
 			&lowMemberPrice=<%=lowMemberPrice%>
@@ -153,9 +223,8 @@
 			&endDate=<%=strEndDate%>
 			&pageNo=<%=pageCount%>">最后一页</a>
 </center>
-
 <%
-	}
+}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -194,6 +263,24 @@
 	</form>
 	<br>
 	<br>
+	<center>简单搜索多类别</center>
+	<form action="productsearch.jsp" method="post">
+		<input type="hidden" name="action" value="simplexsearch2">
+		商品类别：
+		<%
+			for (Iterator<Category> it = categories.iterator(); it.hasNext();) {
+				Category c = it.next();
+				if(c.isLeaf()){
+				%>
+				<br><input type="checkbox" name="categoryId" value="<%=c.getId()%>"> <%=c.getName() %> 
+				<%
+				}
+			}
+			%>
+		<br> <br>
+		关键字：<input type="text" name="keyword"><br> <br> 
+		<input type="submit" value="点击搜索">
+	</form>
 	<br>
 	<br>
 	<center>复杂搜索</center>

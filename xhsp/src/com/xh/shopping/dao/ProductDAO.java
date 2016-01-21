@@ -43,7 +43,7 @@ public interface ProductDAO {
 	public List<Product> getProducts(int pageNo, int pageSize);
 
 	/**
-	 * 返回指定页码指定数量商品列表数据and商品页码总数
+	 * 返回指定页码指定数量商品列表数据and商品页码总数and该商品的Category信息
 	 * 
 	 * @param products
 	 *            商品存入到的泛型
@@ -51,9 +51,12 @@ public interface ProductDAO {
 	 *            查询页数
 	 * @param pageSize
 	 *            查询数量
+	 * @param lazy
+	 *            懒散 非lazy是在获取数据的时候获取Category lazy是在获取数据的时候不获取Category
 	 * @return 返回商品页码总数
 	 */
-	public int getProducts(List<Product> products, int pageNo, int pageSize);
+	public int getProducts(List<Product> products, int pageNo, int pageSize,
+			boolean lazy);
 
 	/**
 	 * 搜索商品
@@ -154,5 +157,15 @@ public interface ProductDAO {
 	 * @return
 	 */
 	public Product loadById(int id);
+
+	// 前台展示商品
+	/**
+	 * 获取最新商品列表
+	 * 
+	 * @param count
+	 *            获取商品的个数
+	 * @return
+	 */
+	public List<Product> getLatestProducts(int count);
 
 }

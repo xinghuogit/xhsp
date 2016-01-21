@@ -92,7 +92,8 @@ public class ProductMySQLDAO implements ProductDAO {
 	}
 
 	@Override
-	public int getProducts(List<Product> products, int pageNo, int pageSize) {
+	public int getProducts(List<Product> products, int pageNo, int pageSize,
+			boolean lazy) {
 		Connection conn = null;
 		ResultSet rs = null;
 		ResultSet rsCount = null;
@@ -105,9 +106,11 @@ public class ProductMySQLDAO implements ProductDAO {
 			 * 算法
 			 */
 			pageCount = (rsCount.getInt(1) + pageSize - 1) / pageSize;
-
-			String sql = "select * from product limit " + (pageNo - 1)
-					* pageSize + "," + pageSize;
+			String sql = "select  product.id, product.name, product.descr, product.normalPrice, product.memberPrice, "
+					+ "product.pdate, product.categoryId, category.id cId, category.name cName, category.descr cDescr, "
+					+ "category.orderby cOrderby, category.pid cPid, category.isleaf cIsLeaf, category.grade cGrade "
+					+ "from product join category on (product.categoryId = category.id) limit "
+					+ (pageNo - 1) * pageSize + "," + pageSize;
 			rs = DB.executeQuery(conn, sql);
 			while (rs.next()) {
 				Product p = new Product();
@@ -118,6 +121,16 @@ public class ProductMySQLDAO implements ProductDAO {
 				p.setMemberPrice(rs.getDouble("memberPrice"));
 				p.setPdate(rs.getTimestamp("pdate"));
 				p.setCategoryId(rs.getInt("categoryId"));
+
+				Category category = new Category();
+				category.setId(rs.getInt("cId"));
+				category.setName(rs.getString("cName"));
+				category.setDescr(rs.getString("cDescr"));
+				category.setOrderby(rs.getInt("cOrderby"));
+				category.setPid(rs.getInt("cPid"));
+				category.setLeaf(rs.getInt("cIsLeaf") == 0 ? true : false);
+				category.setGrads(rs.getInt("cGrade"));
+				p.setCategory(category);
 				products.add(p);
 			}
 		} catch (Exception e) {
@@ -248,7 +261,7 @@ public class ProductMySQLDAO implements ProductDAO {
 
 			if (keyword != null && !"".equals(keyword.trim())) {
 				sql += " and name like '%" + keyword + "%' or descr like '%"
-						+ keyword;
+						+ keyword + "%'";
 			}
 
 			if (lowNormalPrice >= 0) {
@@ -282,13 +295,17 @@ public class ProductMySQLDAO implements ProductDAO {
 
 			sql += " limit " + (pageNo - 1) * pageSize + "," + pageSize;
 
+			System.out.println("sqlCount:" + sqlCount);
 			rsCount = DB.executeQuery(conn, sqlCount);
-			rsCount.next();
 			/**
 			 * 算法 页码总数
 			 */
-			pageCount = (rsCount.getInt(1) + pageSize - 1) / pageSize;
+			if (rsCount.next()) {
+				pageCount = (rsCount.getInt(1) + pageSize - 1) / pageSize;
+			}
+			;
 
+			System.out.println("sql:" + sql);
 			rs = DB.executeQuery(conn, sql);
 			while (rs.next()) {
 				Product p = new Product();
@@ -322,7 +339,28 @@ public class ProductMySQLDAO implements ProductDAO {
 
 	@Override
 	public boolean updateProduct(Product p) {
-		return false;
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = DB.getConnection();
+			String sql = "update product set name=? , descr=?, normalPrice=? , memberPrice=? , pdate=? , categoryId=? where id="
+					+ p.getId();
+			ps = DB.getPStatement(conn, sql);
+			ps.setString(1, p.getName());
+			ps.setString(2, p.getDescr());
+			ps.setDouble(3, p.getNormalPrice());
+			ps.setDouble(4, p.getMemberPrice());
+			ps.setTimestamp(5, p.getPdate());
+			ps.setInt(6, p.getCategoryId());
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			DB.close(ps);
+			DB.close(conn);
+		}
+		return true;
 	}
 
 	@Override
@@ -372,14 +410,16 @@ public class ProductMySQLDAO implements ProductDAO {
 				p.setPdate(rs.getTimestamp("pdate"));
 				p.setCategoryId(rs.getInt("categoryId"));
 
-				Category c = new Category();
-				c.setId(rs.getInt("cId"));
-				c.setName(rs.getString("cName"));
-				c.setDescr(rs.getString("cDescr"));
-				c.setPid(rs.getInt("pid"));
-				c.setLeaf(rs.getInt("isleaf") == 0 ? true : false);
-				c.setOrderby(rs.getInt("orderby"));
-				c.setGrads(rs.getInt("grade"));
+				Category category = new Category();
+				category.setId(rs.getInt("cId"));
+				category.setName(rs.getString("cName"));
+				category.setDescr(rs.getString("cDescr"));
+				category.setPid(rs.getInt("pid"));
+				category.setLeaf(rs.getInt("isleaf") == 0 ? true : false);
+				category.setOrderby(rs.getInt("orderby"));
+				category.setGrads(rs.getInt("grade"));
+
+				p.setCategory(category);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -389,5 +429,35 @@ public class ProductMySQLDAO implements ProductDAO {
 		}
 
 		return p;
+	}
+
+	// 前台展示商品
+	@Override
+	public List<Product> getLatestProducts(int count) {
+		Connection conn = null;
+		ResultSet rs = null;
+		List<Product> products = new ArrayList<Product>();
+		try {
+			conn = DB.getConnection();
+			String sql = "select * from product limit 0," + count;
+			rs = DB.executeQuery(conn, sql);
+			while (rs.next()) {
+				Product p = new Product();
+				p.setId(rs.getInt("id"));
+				p.setName(rs.getString("name"));
+				p.setDescr(rs.getString("descr"));
+				p.setNormalPrice(rs.getDouble("normalPrice"));
+				p.setMemberPrice(rs.getDouble("memberPrice"));
+				p.setPdate(rs.getTimestamp("pdate"));
+				p.setCategoryId(rs.getInt("categoryId"));
+				products.add(p);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.close(rs);
+			DB.close(conn);
+		}
+		return products;
 	}
 }

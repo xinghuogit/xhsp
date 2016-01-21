@@ -14,6 +14,7 @@
  ************************************************************************************************/
 package com.xh.shopping.manage;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -43,6 +44,14 @@ public class ProductMgr {
 
 	public static ProductMgr getInstance() {
 		return pm;
+	}
+
+	public ProductDAO getDao() {
+		return dao;
+	}
+
+	public void setDao(ProductDAO dao) {
+		this.dao = dao;
 	}
 
 	/**
@@ -76,10 +85,13 @@ public class ProductMgr {
 	 *            查询页数
 	 * @param pageSize
 	 *            查询数量
+	 * @param lazy
+	 *            懒散 非lazy是在获取数据的时候获取Category lazy是在获取数据的时候不获取Category
 	 * @return 返回商品页码总数
 	 */
-	public int getProducts(List<Product> products, int pageNo, int pageSize) {
-		return dao.getProducts(products, pageNo, pageSize);
+	public int getProducts(List<Product> products, int pageNo, int pageSize,
+			boolean lazy) {
+		return dao.getProducts(products, pageNo, pageSize, lazy);
 	}
 
 	/**
@@ -115,7 +127,7 @@ public class ProductMgr {
 				highNormalPrice, lowMemberPrice, highMemberPrice, startDate,
 				endDate, pageNo, pageSize);
 	}
-	
+
 	/**
 	 * 返回搜索商品and商品页码总数
 	 * 
@@ -141,11 +153,11 @@ public class ProductMgr {
 	 *            查询数量
 	 * @return
 	 */
-	public int searchProducts(List<Product> products,int[] idArray, String keyword,
-			double lowNormalPrice, double highNormalPrice,
+	public int searchProducts(List<Product> products, int[] idArray,
+			String keyword, double lowNormalPrice, double highNormalPrice,
 			double lowMemberPrice, double highMemberPrice, Date startDate,
 			Date endDate, int pageNo, int pageSize) {
-		return dao.searchProducts(products,idArray, keyword, lowNormalPrice,
+		return dao.searchProducts(products, idArray, keyword, lowNormalPrice,
 				highNormalPrice, lowMemberPrice, highMemberPrice, startDate,
 				endDate, pageNo, pageSize);
 	}
@@ -177,7 +189,7 @@ public class ProductMgr {
 	 * @return
 	 */
 	public boolean updateProduct(Product p) {
-		return false;
+		return dao.updateProduct(p);
 	}
 
 	/**
@@ -189,21 +201,26 @@ public class ProductMgr {
 	public boolean addProduct(Product p) {
 		return dao.addProduct(p);
 	};
-	
+
 	/**
 	 * 根据商品id寻找商品的信息
+	 * 
 	 * @param id
 	 * @return
 	 */
-	public Product loadById(int id){
+	public Product loadById(int id) {
 		return dao.loadById(id);
 	}
 
-	public ProductDAO getDao() {
-		return dao;
-	}
-
-	public void setDao(ProductDAO dao) {
-		this.dao = dao;
+	// 前台展示商品
+	/**
+	 * 获取最新商品列表
+	 * 
+	 * @param count
+	 *            获取商品的个数
+	 * @return
+	 */
+	public List<Product> getLatestProducts(int count) {
+		return dao.getLatestProducts(count);
 	}
 }

@@ -29,6 +29,8 @@ public class Product {
 	private Timestamp pdate;
 	private int categoryId;
 
+	private Category category;
+
 	public int getId() {
 		return id;
 	}
@@ -85,4 +87,11 @@ public class Product {
 		this.categoryId = categoryId;
 	}
 
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 }

@@ -122,16 +122,33 @@ public class CategoryDAO {
 	}
 
 	/**
-	 * 递归获取类别数据
+	 * 递归获取类别数据列表
 	 * 
 	 * @param categories
 	 *            所有类别的list
 	 */
 	public static void getCategories(List<Category> categories, int id) {
 		Connection conn = null;
-		ResultSet rs = null;
 		try {
 			conn = DB.getConnection();
+			getCategories(conn, categories, id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.close(conn);
+		}
+	}
+
+	/**
+	 * 递归获取类别数据列表
+	 * 
+	 * @param categories
+	 *            所有类别的list
+	 */
+	public static void getCategories(Connection conn,
+			List<Category> categories, int id) {
+		ResultSet rs = null;
+		try {
 			String sql = "select * from category where pid = " + id;
 			rs = DB.executeQuery(conn, sql);
 			while (rs.next()) {
@@ -152,7 +169,6 @@ public class CategoryDAO {
 			e.printStackTrace();
 		} finally {
 			DB.close(rs);
-			DB.close(conn);
 		}
 	}
 
