@@ -439,7 +439,7 @@ public class ProductMySQLDAO implements ProductDAO {
 		List<Product> products = new ArrayList<Product>();
 		try {
 			conn = DB.getConnection();
-			String sql = "select * from product limit 0," + count;
+			String sql = "select * from product order by pdate desc limit 0," + count;
 			rs = DB.executeQuery(conn, sql);
 			while (rs.next()) {
 				Product p = new Product();
