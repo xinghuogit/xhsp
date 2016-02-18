@@ -19,5 +19,5 @@ package com.xh.shopping.model;
  */
 public class Cart {
 	private int id;
-	private int  
+	private int name;
 }
