@@ -13,11 +13,12 @@
  * 修改内容：
  ************************************************************************************************/
 package com.xh.shopping.model;
+
 /**
-@filename 文件名称：Cart.java
-@contents 内容摘要：购物车 JavaBean
+ * @filename 文件名称：Cart.java
+ * @contents 内容摘要：购物车 JavaBean
  */
 public class Cart {
 	private int id;
-	private int  
+	private int cartItemId;
 }
