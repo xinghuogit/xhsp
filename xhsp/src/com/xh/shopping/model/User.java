@@ -28,13 +28,11 @@ import java.util.List;
 import com.xh.shopping.jdbc.DB;
 
 /**
- * @文件名称：User.java 用户注册bean
+ * @filename 文件名称：User.java
+ * @contents 内容摘要：用户注册bean
  */
 public class User implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private Connection connection;
@@ -45,12 +43,11 @@ public class User implements Serializable {
 	private String username;
 	private String password;
 	private String phone;
-	// private String auth;
 	private String nickname;
-	// private String pid;
 	private String addr;
 	private Date rdate;
 	private Date cpdate;
+	private String auth;
 
 	public int getId() {
 		return id;
@@ -84,13 +81,13 @@ public class User implements Serializable {
 		this.phone = phone;
 	}
 
-	// public String getAuth() {
-	// return auth;
-	// }
-	//
-	// public void setAuth(String auth) {
-	// this.auth = auth;
-	// }
+	public String getAuth() {
+		return auth;
+	}
+
+	public void setAuth(String auth) {
+		this.auth = auth;
+	}
 
 	public String getName() {
 		return nickname;
@@ -99,14 +96,6 @@ public class User implements Serializable {
 	public void setName(String name) {
 		this.nickname = name;
 	}
-
-	// public String getPid() {
-	// return pid;
-	// }
-	//
-	// public void setPid(String pid) {
-	// this.pid = pid;
-	// }
 
 	public String getAddr() {
 		return addr;
@@ -129,24 +118,6 @@ public class User implements Serializable {
 	}
 
 	public void setCpdate(Date cpdate) {
-		this.cpdate = cpdate;
-	}
-
-	public User() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public User(int id, String username, String password, String phone,
-			String name, String addr, Date rdate, Date cpdate) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.password = password;
-		this.phone = phone;
-		this.nickname = name;
-		this.addr = addr;
-		this.rdate = rdate;
 		this.cpdate = cpdate;
 	}
 

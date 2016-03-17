@@ -108,17 +108,17 @@ public class Category {
 	 *            排序
 	 */
 	public static void addTop(String name, String descr, int orderby) {
-		// Category category = new Category();
-		// category.setId(-1);
-		// category.setName(name);
-		// category.setDescr(descr);
-		// category.setOrderby(orderby);
-		// category.setPid(0);
-		// category.setLeaf(true);
-		// category.setGrads(1);
-		// // CategoryDAO.save(category);
-		// add(category);
-		addChild(name, descr, orderby, 0);
+		Category category = new Category();
+		category.setId(-1);
+		category.setName(name);
+		category.setDescr(descr);
+		category.setOrderby(orderby);
+		category.setPid(0);
+		category.setLeaf(true);
+		category.setGrads(1);
+		// CategoryDAO.save(category);
+		add(category);
+		// addChild(name, descr, orderby, 0);
 	}
 
 	/**
@@ -144,7 +144,7 @@ public class Category {
 	 *            实例化一个Category 然后调用CategoryDAO 方法addChild
 	 */
 	public void addChild(Category category) {
-		System.out.println("id:"+id+"\n"+"getName:"+category.getName());
+		System.out.println("id:" + id + "\n" + "getName:" + category.getName());
 		CategoryDAO.addChild(category.getName(), category.getDescr(),
 				category.getOrderby(), id);
 	}
@@ -169,8 +169,8 @@ public class Category {
 		CategoryDAO.getCategories(categories, 0);
 		return categories;
 	}
-	
-	public static boolean isLeaf(int id){
+
+	public static boolean isLeaf(int id) {
 		return false;
 	}
 }

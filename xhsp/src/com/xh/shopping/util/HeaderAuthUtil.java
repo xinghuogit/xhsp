@@ -16,7 +16,7 @@ package com.xh.shopping.util;
 
 /**
  * @filename 文件名称：HeaderAuthUtil.java
- * @contents 内容摘要：
+ * @contents 内容摘要：检查头部验证信息
  */
 public class HeaderAuthUtil {
 	private static String[] namepwds;
@@ -29,8 +29,8 @@ public class HeaderAuthUtil {
 		try {
 			String username = namepwds[0];
 			String password = namepwds[1];
-			if ((username == null && username.trim().length() == 0)
-					&& (password == null && password.trim().length() == 0)) {
+			if ((StringUtil.isStringDataNull(username))
+					&& (StringUtil.isStringDataNull(password))) {
 				return "非法操作：验证信息为空";
 			} else {
 				return "ok";
@@ -39,7 +39,5 @@ public class HeaderAuthUtil {
 			e.printStackTrace();
 			return "非法操作：验证信息为空";
 		}
-
 	}
-
 }

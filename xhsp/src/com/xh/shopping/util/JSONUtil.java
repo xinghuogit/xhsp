@@ -20,7 +20,7 @@ import com.google.gson.Gson;
 
 /**
  * @filename 文件名称：JSONUtil.java
- * @contents 内容摘要：
+ * @contents 内容摘要：JSON字符串
  */
 public class JSONUtil {
 	private String ret;

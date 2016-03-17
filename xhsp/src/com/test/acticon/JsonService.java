@@ -1,7 +1,6 @@
 package com.test.acticon;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -53,7 +52,7 @@ public class JsonService extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 		response.setCharacterEncoding("utf-8");
 
-		PrintWriter out = response.getWriter();
+//		PrintWriter out = response.getWriter();
 
 		Result result = new Result();
 		result.setResult(1);
@@ -103,9 +102,16 @@ public class JsonService extends HttpServlet {
 			String json1 = JSONUtil.getInstance().getJSON("0000", "成功", null);
 			System.out.println("json1:" + json1);
 
-			User user2 = new User(1, "18380287539", "18380287539",
-					"18380287539", "18380287539", "18380287539", new Date(),
-					new Date());
+			User user2 = new User();
+			user2.setId(0);
+			user2.setUsername("18380287539");
+			user2.setPassword("18380287539");
+			user2.setPhone("18380287539");
+			user2.setName("18380287539");
+			// user2.setAddr(addr);
+			user2.setRdate(new Date());
+			user2.setCpdate(new Date());
+			// user2.setAuth(auth);
 
 			String json2 = JSONUtil.getInstance().getJSON("0000", "成功", user2);
 			System.out.println("json2:" + json2);

@@ -14,13 +14,16 @@
  ************************************************************************************************/
 package com.xh.shopping.model;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
  * @filename 文件名称：Product.java
- * @contents 内容摘要：商品信息
+ * @contents 内容摘要：商品信息bean
  */
-public class Product {
+public class Product implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String name;
 	private String descr;

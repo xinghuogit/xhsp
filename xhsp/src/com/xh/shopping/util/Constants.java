@@ -16,7 +16,7 @@ package com.xh.shopping.util;
 
 /**
  * @filename 文件名称：Constant.java
- * @contents 内容摘要：
+ * @contents 内容摘要：常量
  */
 public class Constants {
 	public static final String ILLEGAL = "非法操作";

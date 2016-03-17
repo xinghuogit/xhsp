@@ -30,7 +30,7 @@ import com.xh.shopping.model.Product;
  * @filename 文件名称：ProductDAO.java
  * @contents 内容摘要：MySQL商品信息DAO
  */
-public class ProductMySQLDAO implements ProductDAO {
+public class ProductDAOMySQL implements ProductDAO {
 
 	@Override
 	public List<Product> getProducts() {

@@ -5,6 +5,12 @@ package com.xh.shopping.util;
  * @contents 内容摘要：String工具类
  */
 public class StringUtil {
+	/**
+	 * 检查String是否为空或者字符串长度为0
+	 * 
+	 * @param str
+	 * @return
+	 */
 	public static boolean isStringDataNull(String str) {
 		return str == null || str.trim().length() == 0;
 	}

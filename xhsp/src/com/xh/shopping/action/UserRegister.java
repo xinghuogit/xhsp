@@ -101,8 +101,17 @@ public class UserRegister extends HttpServlet {
 
 		MD5 md5 = new MD5(password);
 
-		User user = new User(0, username, md5.compute(), phone, nickname, "",
-				new Date(), new Date());
+		User user = new User();
+		user.setId(0);
+		user.setUsername(username);
+		user.setPassword(md5.compute());
+		user.setPhone(phone);
+		user.setName(nickname);
+//		user.setAddr(addr);
+		user.setRdate(new Date());
+		user.setCpdate(new Date());
+//		user.setAuth(auth);
+		
 
 		try {
 			if (!user.getUserName(username)) {

@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.util.Enumeration;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -53,7 +52,7 @@ public class TestRegister extends HttpServlet {
 			// 取出信息名
 			String name = (String) headerNames.nextElement();
 			String value = request.getHeader(name);
-			// out.print("键name:" + name + "值value:" + value + "<br/>");
+			out.print("键name:" + name + "值value:" + value + "<br/>");
 		}
 
 		String name = request.getParameter("user");

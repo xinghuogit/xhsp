@@ -14,12 +14,10 @@
  ************************************************************************************************/
 package com.xh.shopping.manage;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import com.xh.shopping.dao.ProductDAO;
-import com.xh.shopping.dao.ProductMySQLDAO;
+import com.xh.shopping.dao.ProductDAOMySQL;
 import com.xh.shopping.model.Product;
 
 /**
@@ -35,7 +33,7 @@ public class ProductMgr {
 		if (pm == null) {
 			pm = new ProductMgr();
 			// 要去配置文件查看是否使用哪个数据库
-			pm.setDao(new ProductMySQLDAO());
+			pm.setDao(new ProductDAOMySQL());
 		}
 	}
 

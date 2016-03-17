@@ -50,8 +50,8 @@ public class DB {
 		// "jdbc:mysql://rds861y2gckfb4dvlus4.mysql.rds.aliyuncs.com:3306/xhspsql",
 		// "xhspsql", "liLJM371916");//阿里云数据库
 		connection = DriverManager.getConnection(
-				"jdbc:mysql://xhmysql-li160.tenxcloud.net:56956/xhspsql",
-				"admin", "Cb7kUzkbYxf4");// 时速云数据库
+				"jdbc:mysql://xhmysql-li160.tenxcloud.net:54999/xhspsql",
+				"admin", "5Z0JR0uNzq0G");// 时速云数据库
 		// } catch (SQLException e) {
 		// e.printStackTrace();
 		// }
