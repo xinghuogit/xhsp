@@ -1,12 +1,16 @@
 package com.test.acticon;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletInputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -52,7 +56,42 @@ public class JsonService extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 		response.setCharacterEncoding("utf-8");
 
-//		PrintWriter out = response.getWriter();
+		// PrintWriter out = response.getWriter();
+		
+		Map<String, String[]> map = request.getParameterMap();
+		
+		
+		StringBuffer buffer = new StringBuffer();
+		BufferedReader reader = new BufferedReader(new InputStreamReader(request.getInputStream()));
+		String len;
+		while ((len = reader.readLine()) != null) {
+			buffer.append(len);
+		}
+		System.out.println("buffer:" + buffer.toString());
+		
+//		ServletInputStream inputStream = request.getInputStream();
+		
+		
+		
+		String[] strings = map.get("user_id");
+		System.out.println("strings:"+strings.length);
+//		for (int i = 0; i < strings.length; i++) {
+//			System.out.println("strings"+strings[i]);
+//		}
+		
+		
+		
+		String json1 = request.getParameter("json1");
+		System.out.println("json1" + json1);
+		System.out.println("password:"
+				+ new String(json1.getBytes("iso-8859-1"), "utf-8"));
+		
+		String user = request.getParameter("user");
+		System.out.println("user" + user);
+		String user_id = request.getParameter("user_id");
+		System.out.println("user_id" + user_id);
+		String parameter = request.getParameter("budget");
+		System.out.println("parameter" + parameter);
 
 		Result result = new Result();
 		result.setResult(1);
@@ -88,34 +127,34 @@ public class JsonService extends HttpServlet {
 		System.out.println(gson.toJson(result));
 
 		List<User> users = new ArrayList<User>();
-		User user = new User();
+//		User user = new User();
 
-		try {
-			users = user.getUser();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		// try {
+		// users = user.getUser();
+		// } catch (SQLException e) {
+		// e.printStackTrace();
+		// }
 
-		if (users.size() > 0) {
-			String json = JSONUtil.getInstance().getJSON("0000", "成功", users);
-			System.out.println("json:" + json);
-			String json1 = JSONUtil.getInstance().getJSON("0000", "成功", null);
-			System.out.println("json1:" + json1);
-
-			User user2 = new User();
-			user2.setId(0);
-			user2.setUsername("18380287539");
-			user2.setPassword("18380287539");
-			user2.setPhone("18380287539");
-			user2.setName("18380287539");
-			// user2.setAddr(addr);
-			user2.setRdate(new Date());
-			user2.setCpdate(new Date());
-			// user2.setAuth(auth);
-
-			String json2 = JSONUtil.getInstance().getJSON("0000", "成功", user2);
-			System.out.println("json2:" + json2);
-		}
+		// if (users.size() > 0) {
+		// String json = JSONUtil.getInstance().getJSON("0000", "成功", users);
+		// System.out.println("json:" + json);
+		// String json1 = JSONUtil.getInstance().getJSON("0000", "成功", null);
+		// System.out.println("json1:" + json1);
+		//
+		// User user2 = new User();
+		// user2.setId(0);
+		// user2.setUsername("18380287539");
+		// user2.setPassword("18380287539");
+		// user2.setPhone("18380287539");
+		// user2.setName("18380287539");
+		// // user2.setAddr(addr);
+		// user2.setRdate(new Date());
+		// user2.setCpdate(new Date());
+		// // user2.setAuth(auth);
+		//
+		// String json2 = JSONUtil.getInstance().getJSON("0000", "成功", user2);
+		// System.out.println("json2:" + json2);
+		// }
 	}
 
 }

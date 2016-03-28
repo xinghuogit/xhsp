@@ -43,6 +43,7 @@ public class TestRegister extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 
 		PrintWriter out = response.getWriter();
+	
 
 		// 通过枚举类型获取请求文件的头部信息集
 		Enumeration<String> headerNames = request.getHeaderNames();
@@ -54,6 +55,8 @@ public class TestRegister extends HttpServlet {
 			String value = request.getHeader(name);
 			out.print("键name:" + name + "值value:" + value + "<br/>");
 		}
+		
+		
 
 		String name = request.getParameter("user");
 		String password = request.getParameter("password");

@@ -18,7 +18,7 @@ package com.xh.shopping.util;
  * @filename 文件名称：Constant.java
  * @contents 内容摘要：常量
  */
-public class Constants {
+public class Constant {
 	public static final String ILLEGAL = "非法操作";
 	public static final String PLEASEPOST = ",请使用POST请求";
 

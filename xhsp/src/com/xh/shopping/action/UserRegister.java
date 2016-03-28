@@ -2,7 +2,6 @@ package com.xh.shopping.action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 
@@ -12,9 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mysql.jdbc.Connection;
-import com.xh.shopping.jdbc.DB;
 import com.xh.shopping.model.User;
+import com.xh.shopping.util.Constant;
 import com.xh.shopping.util.JSONUtil;
 import com.xh.shopping.util.MD5;
 import com.xh.shopping.util.StringUtil;
@@ -42,8 +40,9 @@ public class UserRegister extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		response.setCharacterEncoding("utf-8");
 		PrintWriter out = response.getWriter();
-		out.print(JSONUtil.getInstance().getJSON0002("非法操作,请使用POST请求"));
-		System.out.println("非法操作,请使用POST请求");
+		out.print(JSONUtil.getInstance().getJSON0002(
+				Constant.ILLEGAL + Constant.PLEASEPOST));
+		System.out.println(Constant.ILLEGAL + Constant.PLEASEPOST);
 	}
 
 	/**
@@ -107,11 +106,10 @@ public class UserRegister extends HttpServlet {
 		user.setPassword(md5.compute());
 		user.setPhone(phone);
 		user.setName(nickname);
-//		user.setAddr(addr);
+		// user.setAddr(addr);
 		user.setRdate(new Date());
 		user.setCpdate(new Date());
-//		user.setAuth(auth);
-		
+		// user.setAuth(auth);
 
 		try {
 			if (!user.getUserName(username)) {

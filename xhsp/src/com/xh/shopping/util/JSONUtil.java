@@ -129,7 +129,7 @@ public class JSONUtil {
 		setMsg(msg);
 
 		Gson json = new Gson();
-		if (Constants.ISSQLEXCEPTION) {
+		if (Constant.ISSQLEXCEPTION) {
 			return json.toJson(this);
 		} else {
 			return null;
