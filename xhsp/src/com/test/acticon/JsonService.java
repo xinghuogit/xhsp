@@ -1,29 +1,24 @@
 package com.test.acticon;
 
 import java.io.BufferedReader;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletInputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 
-import com.google.gson.Gson;
-import com.test.model.Person;
-import com.test.model.Result;
-import com.test.model.School;
-import com.xh.shopping.model.User;
-import com.xh.shopping.util.JSONUtil;
+import org.apache.commons.fileupload.FileItemIterator;
+import org.apache.commons.fileupload.FileItemStream;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.fileupload.util.Streams;
+
+import com.xh.shopping.util.RequestContentType;
 
 /**
  * Servlet implementation class Json
@@ -55,83 +50,55 @@ public class JsonService extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		// 判断enctype属性是否为multipart/form-data
+		if (ServletFileUpload.isMultipartContent(request)) {
+			RequestContentType.setRequestContentType(request);
+		}
+		
+
 		response.setContentType("text/html; charset=utf-8");
 		response.setCharacterEncoding("utf-8");
 
-		// PrintWriter out = response.getWriter();
-		
-		Map<String, String[]> map = request.getParameterMap();
-		
-		List<Part> d = (List<Part>) request.getParts();
-		Collection<Part> parts = request.getParts();
-		
-		StringBuffer buffer = new StringBuffer();
-		BufferedReader reader = new BufferedReader(new InputStreamReader(request.getInputStream()));
-		String len;
-		while ((len = reader.readLine()) != null) {
-			buffer.append(len);
-		}
-		System.out.println("buffer:" + buffer.toString());
-		
-//		ServletInputStream inputStream = request.getInputStream();
-		
-		
-		
-		String[] strings = map.get("user_id");
-		System.out.println("strings:"+strings.length);
-//		for (int i = 0; i < strings.length; i++) {
-//			System.out.println("strings"+strings[i]);
-//		}
-		
-		
-		
-		String json1 = request.getParameter("json1");
-		System.out.println("json1" + json1);
-		System.out.println("password:"
-				+ new String(json1.getBytes("iso-8859-1"), "utf-8"));
-		
-		String user = request.getParameter("user");
-		System.out.println("user" + user);
-		String user_id = request.getParameter("user_id");
-		System.out.println("user_id" + user_id);
-		String parameter = request.getParameter("budget");
-		System.out.println("parameter" + parameter);
+		System.out.println("getAuthType:" + request.getAuthType());
+		System.out.println("getMethod:" + request.getMethod());
+		System.out.println("getMethod:" + request.getContentType());
+		System.out.println("request:" + request.getHeader("Authorization"));
 
-		Result result = new Result();
-		result.setResult(1);
-		List<Person> persons = new ArrayList<Person>();
-		result.setPersons(persons);
+		// Result result = new Result();
+		// result.setResult(1);
+		// List<Person> persons = new ArrayList<Person>();
+		// result.setPersons(persons);
+		//
+		// Person person1 = new Person();
+		// person1.setName("张三");
+		// person1.setAge(14);
+		// person1.setUrl("http://e.hiphotos.baidu.com/zhidao/wh%3D600%2C800/sign=b3f83a5681d6277fe9473a3e18083308/7c1ed21b0ef41bd59997461957da81cb38db3d12.jpg");
+		//
+		// Person person2 = new Person();
+		// person2.setName("李四");
+		// person2.setAge(13);
+		// person2.setUrl("http://e.hiphotos.baidu.com/zhidao/wh%3D600%2C800/sign=b3f83a5681d6277fe9473a3e18083308/7c1ed21b0ef41bd59997461957da81cb38db3d12.jpg");
+		//
+		// List<School> schools = new ArrayList<School>();
+		//
+		// School school1 = new School();
+		// school1.setName("苍大");
+		//
+		// School school2 = new School();
+		// school2.setName("藤大");
+		//
+		// schools.add(school1);
+		// schools.add(school2);
+		//
+		// person2.setSchools(schools);
+		// persons.add(person2);
+		//
+		// Gson gson = new Gson();
 
-		Person person1 = new Person();
-		person1.setName("张三");
-		person1.setAge(14);
-		person1.setUrl("http://e.hiphotos.baidu.com/zhidao/wh%3D600%2C800/sign=b3f83a5681d6277fe9473a3e18083308/7c1ed21b0ef41bd59997461957da81cb38db3d12.jpg");
+		// System.out.println(gson.toJson(result));
 
-		Person person2 = new Person();
-		person2.setName("李四");
-		person2.setAge(13);
-		person2.setUrl("http://e.hiphotos.baidu.com/zhidao/wh%3D600%2C800/sign=b3f83a5681d6277fe9473a3e18083308/7c1ed21b0ef41bd59997461957da81cb38db3d12.jpg");
-
-		List<School> schools = new ArrayList<School>();
-
-		School school1 = new School();
-		school1.setName("苍大");
-
-		School school2 = new School();
-		school2.setName("藤大");
-
-		schools.add(school1);
-		schools.add(school2);
-
-		person2.setSchools(schools);
-		persons.add(person2);
-
-		Gson gson = new Gson();
-
-		System.out.println(gson.toJson(result));
-
-		List<User> users = new ArrayList<User>();
-//		User user = new User();
+		// List<User> users = new ArrayList<User>();
+		// User user = new User();
 
 		// try {
 		// users = user.getUser();
@@ -160,5 +127,4 @@ public class JsonService extends HttpServlet {
 		// System.out.println("json2:" + json2);
 		// }
 	}
-
 }
