@@ -54,7 +54,6 @@ public class JsonService extends HttpServlet {
 		if (ServletFileUpload.isMultipartContent(request)) {
 			RequestContentType.setRequestContentType(request);
 		}
-		
 
 		response.setContentType("text/html; charset=utf-8");
 		response.setCharacterEncoding("utf-8");
@@ -63,6 +62,12 @@ public class JsonService extends HttpServlet {
 		System.out.println("getMethod:" + request.getMethod());
 		System.out.println("getMethod:" + request.getContentType());
 		System.out.println("request:" + request.getHeader("Authorization"));
+		System.out.println("user_id:" + request.getParameter("user_id"));
+		System.out.println("User-Agent:" + request.getParameter("User-Agent"));
+		System.out.println("User-Agent1:" + request.getHeader("User-Agent"));
+
+		PrintWriter out = response.getWriter();
+		out.print("jjjjjjjjjjjjjjjjj" + request.getParameter("user_id"));
 
 		// Result result = new Result();
 		// result.setResult(1);

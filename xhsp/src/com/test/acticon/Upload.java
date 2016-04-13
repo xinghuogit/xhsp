@@ -42,7 +42,8 @@ public class Upload extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		Part part = request.getPart("file");
+		System.out.println("dopost");
+		Part part = request.getPart("image0");
 		part.write("end" + System.currentTimeMillis() + ".jpg");
 
 		response.setContentType("text/html;charset=utf-8");
