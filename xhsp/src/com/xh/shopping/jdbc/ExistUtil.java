@@ -32,7 +32,7 @@ public class ExistUtil {
 	private static PreparedStatement pStatement;
 	private static ResultSet rs;
 
-	public static boolean isUser(String username) throws SQLException {
+	public static boolean isUser(String username) throws Exception {
 		try {
 			String sql = "select * from ruser where username = '" + username
 					+ "'";
@@ -55,7 +55,7 @@ public class ExistUtil {
 	}
 
 	public static boolean isPassword(String username, String password)
-			throws SQLException {
+			throws Exception {
 		try {
 			String sql = "select * from ruser where username = " + username;
 			connection = (Connection) DB.getConnection();
@@ -77,7 +77,7 @@ public class ExistUtil {
 		}
 	}
 
-	public static User getUser(String username) throws SQLException {
+	public static User getUser(String username) throws Exception {
 		try {
 			User user = new User();
 			String sql = "select * from ruser where username = " + username;

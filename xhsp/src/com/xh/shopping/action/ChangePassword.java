@@ -144,6 +144,9 @@ public class ChangePassword extends HttpServlet {
 				e.printStackTrace();
 				out.print(JSONUtil.getInstance().getJSON0009("数据库异常，请稍后再试"));
 				System.out.println("数据库异常，请稍后再试");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 

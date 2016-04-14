@@ -12,8 +12,8 @@ phone varchar(40),
 nickname varchar(16),
 addr varchar(255),
 rdate datetime,
-cpdate datetime
-auth varchar(20);
+cpdate datetime,
+auth varchar(20)
 );
 
 --创建商品类别的表格

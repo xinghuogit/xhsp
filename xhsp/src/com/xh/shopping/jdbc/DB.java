@@ -22,10 +22,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.Session;
+
 /**
  * @文件名称：JDBC.java 数据库连接、操纵数据库 插入、删除、更改、
  */
 public class DB {
+
+	int lport = 22;// 本地端口
+	String rhost = "172.16.34.208";// 远程MySQL服务器
+	int rport = 3306;// 远程MySQL服务端口
 
 	/**
 	 * 静态块 进入本类就执行语句
@@ -42,19 +49,38 @@ public class DB {
 	 * @return connection 获取一个数据库的连接
 	 * @throws SQLException
 	 */
-	public static Connection getConnection() throws SQLException {
+	public static Connection getConnection() throws Exception {
 		Connection connection = null;
 		// try {
 		// connection = DriverManager
 		// .getConnection(
 		// "jdbc:mysql://rds861y2gckfb4dvlus4.mysql.rds.aliyuncs.com:3306/xhspsql",
 		// "xhspsql", "liLJM371916");//阿里云数据库
+		// connection = DriverManager.getConnection(
+		// "jdbc:mysql://xhmysql-li160.tenxcloud.net:54999/xhspsql",
+		// "root", "5Z0JR0uNzq0G");// 时速云数据库服务器
+
+		int lport = 20;// 本地端口
+		String rhost = "xhserver-li160.tenxcloud.net";// 远程MySQL服务器
+		int rport = 3306;// 远程MySQL服务端口
+
+		String user = "root";// SSH连接用户名
+		String password = "wGm47UAY6PoI";// SSH连接密码
+		String host = "xhserver-li160.tenxcloud.net";// SSH服务器
+		int port = 57329;// SSH访问端口
+
+		JSch jsch = new JSch();
+		Session session = jsch.getSession(user, host, port);
+		session.setPassword(password);
+		session.setConfig("StrictHostKeyChecking", "no");
+		session.connect();
+		System.out.println(session.getServerVersion());// 这里打印SSH服务器版本信息
+		System.out.println("rhost:" + rhost);
+		int assinged_port = session.setPortForwardingL(lport, rhost, rport);
+		System.out.println("localhost:" + assinged_port + " -> " + rhost + ":"
+				+ rport);
 		connection = DriverManager.getConnection(
-				"jdbc:mysql://xhmysql-li160.tenxcloud.net:54999/xhspsql",
-				"admin", "5Z0JR0uNzq0G");// 时速云数据库
-		// } catch (SQLException e) {
-		// e.printStackTrace();
-		// }
+				"jdbc:mysql://localhost:3306/xhspsql", "root", "li191128");// 时速云服务器上面的数据库服务器
 		return connection;
 	}
 
@@ -153,6 +179,7 @@ public class DB {
 
 	/**
 	 * 执行一条更新sql语句
+	 * 
 	 * @param connection
 	 * @param sql
 	 * @return

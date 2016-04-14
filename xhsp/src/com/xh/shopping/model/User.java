@@ -121,7 +121,7 @@ public class User implements Serializable {
 		this.cpdate = cpdate;
 	}
 
-	public void save() throws SQLException {
+	public void save() throws Exception {
 		try {
 			connection = DB.getConnection();
 			String sql = "insert into ruser values (null, ?, ?, ?, ?, ?, ?, ?)";
@@ -156,7 +156,7 @@ public class User implements Serializable {
 		// DB.close(connection);
 	}
 
-	public boolean getUserName(String username) throws SQLException {
+	public boolean getUserName(String username) throws Exception {
 		try {
 			String sql = "select * from ruser";
 			connection = (Connection) DB.getConnection();
@@ -174,7 +174,7 @@ public class User implements Serializable {
 		}
 	}
 
-	public List<User> getUser() throws SQLException {
+	public List<User> getUser() throws Exception {
 		try {
 			List<User> users = new ArrayList<User>();
 			String sql = "select * from ruser";

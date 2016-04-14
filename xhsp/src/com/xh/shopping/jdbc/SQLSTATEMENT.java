@@ -29,7 +29,7 @@ public class SQLSTATEMENT {
 	private static ResultSet rs;
 
 	public static void changePassword(int id, String userName, String password)
-			throws SQLException {
+			throws Exception {
 		try {
 			connection = DB.getConnection();
 			String sql = "update ruser set password = ? where id = ?";
