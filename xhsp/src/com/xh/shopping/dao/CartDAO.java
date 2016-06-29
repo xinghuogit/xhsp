@@ -14,8 +14,9 @@
  ************************************************************************************************/
 package com.xh.shopping.dao;
 
+import java.util.List;
+
 import com.xh.shopping.model.Cart;
-import com.xh.shopping.model.Product;
 
 /**
  * @filename 文件名称：CartDAO.java
@@ -42,8 +43,16 @@ public interface CartDAO {
 	/**
 	 * 更新一个购物车信息商品
 	 * 
-	 * @param p
+	 * @param cart
 	 * @return
 	 */
 	public boolean updateCart(Cart cart);
+
+	/**
+	 * 根据用户id获取该用户购物车商品的信息
+	 * 
+	 * @param userid
+	 * @return
+	 */
+	public List<Cart> getCarts(int userid);
 }

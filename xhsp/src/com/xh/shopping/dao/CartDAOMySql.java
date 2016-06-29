@@ -17,11 +17,11 @@ package com.xh.shopping.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.xh.shopping.jdbc.DB;
 import com.xh.shopping.model.Cart;
-import com.xh.shopping.model.Category;
-import com.xh.shopping.model.Product;
 
 /**
  * @filename 文件名称：CartDAOMySql.java
@@ -38,6 +38,7 @@ public class CartDAOMySql implements CartDAO {
 			String sql = "insert into cart values (null, ?, ?, ?, ?, ?, ?)";
 			Cart c = loadById(cart.getUserid(), cart.getProductid());
 			if (c != null) {
+				c.setCount(c.getCount() + 1);
 				updateCart(c);
 			} else {
 				ps = DB.getPStatement(conn, sql);
@@ -46,7 +47,7 @@ public class CartDAOMySql implements CartDAO {
 				ps.setDouble(3, cart.getNormalprice());
 				ps.setDouble(4, cart.getMemberprice());
 				ps.setInt(5, cart.getCount());
-				ps.setInt(5, cart.getUserid());
+				ps.setInt(6, cart.getUserid());
 				ps.executeUpdate();
 			}
 		} catch (Exception e) {
@@ -65,8 +66,9 @@ public class CartDAOMySql implements CartDAO {
 		ResultSet rs = null;
 		Cart cart = null;
 		String sql = "select * from cart where cart.userid =" + userid
-				+ "and cart.productid =" + productid;
+				+ " and cart.productid =" + productid;
 		try {
+			conn = DB.getConnection();
 			rs = DB.executeQuery(conn, sql);
 			if (rs.next()) {
 				cart = new Cart();
@@ -95,13 +97,13 @@ public class CartDAOMySql implements CartDAO {
 			conn = DB.getConnection();
 			String sql = "update cart set productname=?, normalprice=? , memberprice=? , count=? where userid ="
 					+ cart.getUserid()
-					+ "and productid ="
+					+ " and productid ="
 					+ cart.getProductid();
 			ps = DB.getPStatement(conn, sql);
 			ps.setString(1, cart.getProductname());
 			ps.setDouble(2, cart.getNormalprice());
 			ps.setDouble(3, cart.getMemberprice());
-			ps.setInt(4, (cart.getCount() + 1));
+			ps.setInt(4, cart.getCount());
 			ps.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -111,5 +113,35 @@ public class CartDAOMySql implements CartDAO {
 			DB.close(conn);
 		}
 		return true;
+	}
+
+	@Override
+	public List<Cart> getCarts(int userid) {
+		Connection conn = null;
+		ResultSet rs = null;
+		Cart cart = null;
+		List<Cart> carts = new ArrayList<Cart>();
+		String sql = "select * from cart where cart.userid =" + userid;
+		try {
+			conn = DB.getConnection();
+			rs = DB.executeQuery(conn, sql);
+			while (rs.next()) {
+				cart = new Cart();
+				cart.setId(rs.getInt("id"));
+				cart.setProductid(rs.getInt("productid"));
+				cart.setProductname(rs.getString("productname"));
+				cart.setNormalprice(rs.getDouble("normalprice"));
+				cart.setMemberprice(rs.getDouble("memberprice"));
+				cart.setCount(rs.getInt("count"));
+				cart.setUserid(rs.getInt("userid"));
+				carts.add(cart);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.close(rs);
+			DB.close(conn);
+		}
+		return carts;
 	}
 }

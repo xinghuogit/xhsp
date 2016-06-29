@@ -57,9 +57,9 @@ public class UserDAOMySQL implements UserDAO {
 		Connection conn = null;
 		ResultSet rs = null;
 		User user = null;
-		String sql = "select * from ruser where ruser.username =" + username
-				+ "and ruser.password =" + password;
+		String sql = "select * from ruser where ruser.username =" + username;
 		try {
+			conn = DB.getConnection();
 			rs = DB.executeQuery(conn, sql);
 			if (rs.next()) {
 				user = new User();

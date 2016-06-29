@@ -5,14 +5,12 @@
 <%@page import="com.xh.shopping.model.Cart"%>
 <%@page import="com.xh.shopping.manage.CartMgr"%>
 <%@ include file="_usersessioncheck.jsp"%>
-
 <%
 	request.setCharacterEncoding("utf-8");
 	String strId = request.getParameter("id");
 	int id = -1;
 	Product p = null;
 	Cart cart = null;
-	CartMgr cartMgr = null;
 
 	if (strId != null && !"".equals(strId)) {
 		id = Integer.parseInt(strId);
@@ -23,9 +21,9 @@
 		cart.setNormalprice(p.getNormalPrice());
 		cart.setMemberprice(p.getMemberPrice());
 		cart.setCount(1);
-		//cart.setUserid(user.getId());
-		//cartMgr.addCart(cart);
+		cart.setUserid(user.getId());
+		CartMgr.getInstance().addCart(cart);
+		response.sendRedirect("cart.jsp?userid=" + user.getId());
 	}
-	out.println("user:"+user == null);
 %>
 

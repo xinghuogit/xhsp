@@ -19,13 +19,13 @@
 			user = UserMgr.getInstance().loadByUserNmaePassword(
 					username, password);
 		}
-	}
-	if (user == null) {
-		out.println("账号或者密码错误请重新输入");
-	} else {
-		session.setAttribute("user", user);
-		response.sendRedirect("homegood.jsp");
+		if (user == null) {
+			out.println("账号或者密码错误请重新输入");
+		} else {
+			session.setAttribute("user", user);
+			response.sendRedirect("homegood.jsp");
 
+		}
 	}
 %>
 <html>
@@ -42,13 +42,13 @@
 			</tr>
 			<tr>
 				<td>账号：</td>
-				<td><input type="text" name="username" size="30" maxlength="10">
+				<td><input type="text" name="username" size="30" maxlength="30">
 				</td>
 			</tr>
 			<tr>
 				<td>密码：</td>
 				<td><input type="password" name="password" size="30"
-					maxlength="10"></td>
+					maxlength="30"></td>
 			</tr>
 
 			<tr>

@@ -14,6 +14,8 @@
  ************************************************************************************************/
 package com.xh.shopping.manage;
 
+import java.util.List;
+
 import com.xh.shopping.dao.CartDAO;
 import com.xh.shopping.dao.CartDAOMySql;
 import com.xh.shopping.model.Cart;
@@ -55,6 +57,25 @@ public class CartMgr {
 	 */
 	public boolean addCart(Cart cart) {
 		return dao.addCart(cart);
-	};
+	}
 
+	/**
+	 * 根据用户id获取该用户购物车商品的信息
+	 * 
+	 * @param userid
+	 * @return
+	 */
+	public List<Cart> getCarts(int userid) {
+		return dao.getCarts(userid);
+	}
+
+	/**
+	 * 更新一个购物车信息商品
+	 * 
+	 * @param cart
+	 * @return
+	 */
+	public boolean updateCart(Cart cart) {
+		return dao.updateCart(cart);
+	}
 }
