@@ -15,43 +15,35 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-	<meta http-equiv="X-UA-Compatible"
-		content="IE=EmulateIE7 charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7 charset=utf-8">
 
-		<title>商城有你所有</title>
-		<meta name="description" content="商城有你所有">
-			<meta name="keywords" content="商城有你所有">
-				<link href="./image/ecmall.css" rel="stylesheet" type="text/css">
-					<script type="text/javascript">
-						//<!CDATA[
-						var SITE_URL = "http://www.ttuhui.com";
-						var REAL_SITE_URL = "http://cd.ttuhui.com";
-						var PRICE_FORMAT = '¥%s';
-					</script>
-					<script type="text/javascript" src="./image/index.php"></script>
-					<script type="text/javascript" src="./image/jquery.js"
-						charset="utf-8"></script>
-					<script type="text/javascript" src="./image/ecmall.js"
-						charset="utf-8"></script>
-					<script type="text/javascript" src="./image/member.js"
-						charset="utf-8"></script>
-					<script type="text/javascript" src="./image/jquery.from.js"
-						charset="utf-8"></script>
-					<script type="text/javascript" src="./image/jquery.slideBox.min.js"
-						charset="utf-8"></script>
-					<script type="text/javascript">
-						$(function() {
-							$(".head_top a.app_down").hover(
-									function() {
-										$(this).find(".QuickMark").css(
-												"display", "block");
-									},
-									function() {
-										$(this).find(".QuickMark").css(
-												"display", "none");
-									});
-						});
-					</script>
+<title>商城有你所有</title>
+<meta name="description" content="商城有你所有">
+<meta name="keywords" content="商城有你所有">
+<link href="./image/ecmall.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+	//<!CDATA[
+	var SITE_URL = "http://www.ttuhui.com";
+	var REAL_SITE_URL = "http://cd.ttuhui.com";
+	var PRICE_FORMAT = '¥%s';
+</script>
+<script type="text/javascript" src="./image/index.php"></script>
+<script type="text/javascript" src="./image/jquery.js" charset="utf-8"></script>
+<script type="text/javascript" src="./image/ecmall.js" charset="utf-8"></script>
+<script type="text/javascript" src="./image/member.js" charset="utf-8"></script>
+<script type="text/javascript" src="./image/jquery.from.js"
+	charset="utf-8"></script>
+<script type="text/javascript" src="./image/jquery.slideBox.min.js"
+	charset="utf-8"></script>
+<script type="text/javascript">
+	$(function() {
+		$(".head_top a.app_down").hover(function() {
+			$(this).find(".QuickMark").css("display", "block");
+		}, function() {
+			$(this).find(".QuickMark").css("display", "none");
+		});
+	});
+</script>
 </head>
 <body>
 	<div id="head">
@@ -222,12 +214,13 @@
 				<ul>
 					<%
 						if(products!=null && products.size()>0) {
-									   for(Iterator<Product> it = products.iterator(); it.hasNext();){
-										   Product product = it.next();
+															   for(Iterator<Product> it = products.iterator(); it.hasNext();){
+																   Product product = it.next();
 					%>
-					<li><a href="productdetailshow.jsp?id=<%=product.getId() %>"
+					<li><a href="productdetailshow.jsp?id=<%=product.getId()%>"
 						title="<%=product.getName()%>" target="_blank"><img
-							src="./image/store_logo.png_c292x292" alt="<%=product.getName()%>"></a>
+							src="./image/store_logo.png_c292x292"
+							alt="<%=product.getName()%>"></a>
 						<div class="store_list_info">
 							<p class="store_list_tilte">
 								<a href="http://cd.ttuhui.com/store/213.html"
@@ -240,7 +233,11 @@
 						</div></li>
 					<%
 						}
-												}
+																		} else {
+					%>
+					<element>没有更多商品</element>
+					<%
+						}
 					%>
 				</ul>
 				<div class="clear"></div>

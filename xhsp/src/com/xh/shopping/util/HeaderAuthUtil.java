@@ -29,8 +29,8 @@ public class HeaderAuthUtil {
 		try {
 			String username = namepwds[0];
 			String password = namepwds[1];
-			if ((StringUtil.isStringDataNull(username))
-					&& (StringUtil.isStringDataNull(password))) {
+			if ((StringUtil.isEmpty(username))
+					&& (StringUtil.isEmpty(password))) {
 				return "非法操作：验证信息为空";
 			} else {
 				return "ok";

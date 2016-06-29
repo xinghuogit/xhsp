@@ -39,3 +39,30 @@ memberPrice double,
 pdate datetime,
 categoryId int
 );
+
+--创建购物车的表格
+create table cart
+(
+id int primary key auto_increment,
+productid int,
+productname varchar(255),
+normalprice double,
+memberprice double,
+count int 
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -111,9 +111,9 @@ public class ChangePassword extends HttpServlet {
 		String passwor1 = request.getParameter("password1").trim();
 		String passwor2 = request.getParameter("password2").trim();
 
-		if (StringUtil.isStringDataNull(passwor)
-				|| StringUtil.isStringDataNull(passwor1)
-				|| StringUtil.isStringDataNull(passwor2)) {
+		if (StringUtil.isEmpty(passwor)
+				|| StringUtil.isEmpty(passwor1)
+				|| StringUtil.isEmpty(passwor2)) {
 			out.print(JSONUtil.getInstance().getJSON0002("非法操作：原密码、新密码、确认密码为空"));
 			System.out.println("非法操作：原密码、新密码、确认密码为空");
 			return;

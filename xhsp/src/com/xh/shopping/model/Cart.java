@@ -20,5 +20,74 @@ package com.xh.shopping.model;
  */
 public class Cart {
 	private int id;
-	private int cartItemId;
+	private int productid;
+	private String productname;
+	private double normalprice;
+	private double memberprice;
+	private int count;
+	private int userid;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getProductid() {
+		return productid;
+	}
+
+	public void setProductid(int productid) {
+		this.productid = productid;
+	}
+
+	public String getProductname() {
+		return productname;
+	}
+
+	public void setProductname(String productname) {
+		this.productname = productname;
+	}
+
+	public double getNormalprice() {
+		return normalprice;
+	}
+
+	public void setNormalprice(double normalprice) {
+		this.normalprice = normalprice;
+	}
+
+	public double getMemberprice() {
+		return memberprice;
+	}
+
+	public void setMemberprice(double memberprice) {
+		this.memberprice = memberprice;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	public int getUserid() {
+		return userid;
+	}
+
+	public void setUserid(int userid) {
+		this.userid = userid;
+	}
+
+	public double getNormalTotalPrice() {
+		return normalprice * count;
+	}
+
+	public double getMemberTotalPrice() {
+		return memberprice * count;
+	}
 }

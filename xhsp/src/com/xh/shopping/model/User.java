@@ -124,7 +124,7 @@ public class User implements Serializable {
 	public void save() throws Exception {
 		try {
 			connection = DB.getConnection();
-			String sql = "insert into ruser values (null, ?, ?, ?, ?, ?, ?, ?)";
+			String sql = "insert into ruser values (null, ?, ?, ?, ?, ?, ?, ?, ?)";
 			pStatement = DB.getPStatement(connection, sql);
 			pStatement.setString(1, getUsername());
 			pStatement.setString(2, getPassword());
@@ -133,6 +133,7 @@ public class User implements Serializable {
 			pStatement.setString(5, getAddr());
 			pStatement.setTimestamp(6, new Timestamp(getRdate().getTime()));
 			pStatement.setTimestamp(7, new Timestamp(getCpdate().getTime()));
+			pStatement.setString(8, getAuth());
 			pStatement.executeUpdate();
 		} finally {
 			System.out.println("是否异常都需关闭数据库连接");

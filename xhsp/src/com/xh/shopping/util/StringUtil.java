@@ -11,7 +11,7 @@ public class StringUtil {
 	 * @param str
 	 * @return
 	 */
-	public static boolean isStringDataNull(String str) {
-		return str == null || str.trim().length() == 0;
+	public static boolean isEmpty(String value) {
+		return value == null || value.trim().length() == 0 || "".equals(value);
 	}
 }

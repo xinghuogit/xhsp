@@ -35,6 +35,10 @@ public class UserMgr {
 		}
 	}
 
+	public static UserMgr getInstance() {
+		return um;
+	}
+
 	public UserDAO getUserDAO() {
 		return userDAO;
 	}
@@ -59,6 +63,10 @@ public class UserMgr {
 	 */
 	public void isUser(User user) {
 		userDAO.isUser(user);
+	}
+
+	public User loadByUserNmaePassword(String username, String password) {
+		return userDAO.loadByUserNmaePassword(username, password);
 	}
 
 }

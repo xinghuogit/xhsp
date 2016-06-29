@@ -65,12 +65,12 @@ public class Login extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 
-		if (StringUtil.isStringDataNull(username)) {
+		if (StringUtil.isEmpty(username)) {
 			out.print(JSONUtil.getInstance().getJSON("0009", "非法操作", null));
 			System.out.println("非法操作：账号为空");
 			return;
 		}
-		if (StringUtil.isStringDataNull(password)) {
+		if (StringUtil.isEmpty(password)) {
 			out.print(JSONUtil.getInstance().getJSON("0009", "非法操作", null));
 			System.out.println("非法操作：密码为空");
 			return;

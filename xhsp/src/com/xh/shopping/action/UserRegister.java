@@ -65,17 +65,17 @@ public class UserRegister extends HttpServlet {
 		// String nickname = request.getParameter("nickname");
 		// String addr = request.getParameter("addr");
 
-		if (StringUtil.isStringDataNull(username)) {
+		if (StringUtil.isEmpty(username)) {
 			out.print(JSONUtil.getInstance().getJSON0002("非法操作：账号为空"));
 			System.out.println("非法操作：账号为空");
 			return;
 		}
-		if (StringUtil.isStringDataNull(password)) {
+		if (StringUtil.isEmpty(password)) {
 			out.print(JSONUtil.getInstance().getJSON0002("非法操作：密码为空"));
 			System.out.println("非法操作：密码为空");
 			return;
 		}
-		if (StringUtil.isStringDataNull(password2)) {
+		if (StringUtil.isEmpty(password2)) {
 			out.print(JSONUtil.getInstance().getJSON0002("非法操作,确认密码不可为空"));
 			System.out.println("确认密码不可为空");
 			return;
@@ -91,10 +91,10 @@ public class UserRegister extends HttpServlet {
 			return;
 		}
 
-		// if (StringUtil.isStringDataNull(phone)) {
+		// if (StringUtil.isEmpty(phone)) {
 		String phone = username;
 		// }
-		// if (StringUtil.isStringDataNull(nickname)) {
+		// if (StringUtil.isEmpty(nickname)) {
 		String nickname = username;
 		// }
 
