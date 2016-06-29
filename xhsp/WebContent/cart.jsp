@@ -14,8 +14,6 @@
 	if (!StringUtil.isEmpty(strId)) {
 		id = Integer.parseInt(strId);
 		carts = CartMgr.getInstance().getCarts(id);
-		HttpSession s = request.getSession();
-		s.setAttribute("carts", carts);
 	}
 %>
 

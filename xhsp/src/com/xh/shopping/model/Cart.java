@@ -14,6 +14,7 @@
  ************************************************************************************************/
 package com.xh.shopping.model;
 
+
 /**
  * @filename 文件名称：Cart.java
  * @contents 内容摘要：购物车 JavaBean
@@ -90,4 +91,5 @@ public class Cart {
 	public double getMemberTotalPrice() {
 		return memberprice * count;
 	}
+
 }

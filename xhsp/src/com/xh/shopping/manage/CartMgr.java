@@ -78,4 +78,16 @@ public class CartMgr {
 	public boolean updateCart(Cart cart) {
 		return dao.updateCart(cart);
 	}
+
+	public double getTotalPrice(List<Cart> carts) {
+		if (carts == null || carts.size() <= 0) {
+			return 0;
+		}
+		double value = 0;
+		for (int i = 0; i < carts.size(); i++) {
+			value = +carts.get(i).getMemberTotalPrice();
+		}
+		value = Math.round(value * 100) / 100;
+		return value;
+	}
 }
