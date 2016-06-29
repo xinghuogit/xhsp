@@ -48,12 +48,12 @@ public class DB {
 	public static Connection getConnection() throws Exception {
 		Connection connection = null;
 		// try {
-//		connection = DriverManager
-//				.getConnection(
-//						"jdbc:mysql://rds861y2gckfb4dvlus4.mysql.rds.aliyuncs.com:3306/xhspsql",
-//						"xhspsql", "liLJM371916");// 阿里云数据库
+		// connection = DriverManager
+		// .getConnection(
+		// "jdbc:mysql://rds861y2gckfb4dvlus4.mysql.rds.aliyuncs.com:3306/xhspsql",
+		// "xhspsql", "liLJM371916");// 阿里云数据库
 		connection = DriverManager.getConnection(
-				"jdbc:mysql://xhmysql-li160.tenxcloud.net:54999/xhspsql",
+				"jdbc:mysql://xhmysql-li160.tenxcloud.net:23105/xhspsql",
 				"admin", "5Z0JR0uNzq0G");// 时速云数据库服务器
 
 		// int lport = 3307;// 本地端口
@@ -145,6 +145,7 @@ public class DB {
 	 * @return resultSet 返回的结果集 resultSet.next(); 一整条数据
 	 */
 	public static ResultSet executeQuery(Connection connection, String sql) {
+		System.out.println("sql:" + sql);
 		ResultSet resultSet = null;
 		try {
 			resultSet = connection.createStatement().executeQuery(sql);

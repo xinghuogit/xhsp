@@ -14,8 +14,11 @@
  ************************************************************************************************/
 package com.xh.shopping.dao;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.util.List;
 
+import com.xh.shopping.jdbc.DB;
 import com.xh.shopping.model.User;
 
 /**
@@ -31,7 +34,6 @@ public class UserDAOMySQL implements UserDAO {
 
 	@Override
 	public void isUser(User user) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -48,6 +50,33 @@ public class UserDAOMySQL implements UserDAO {
 	@Override
 	public void loadById(int id) {
 
+	}
+
+	@Override
+	public User loadByUserNmaePassword(String username, String password) {
+		Connection conn = null;
+		ResultSet rs = null;
+		User user = null;
+		String sql = "select * from ruser where ruser.username =" + username;
+		try {
+			conn = DB.getConnection();
+			rs = DB.executeQuery(conn, sql);
+			if (rs.next()) {
+				user = new User();
+				user.setId(rs.getInt("id"));
+				user.setUsername(rs.getString("username"));
+				user.setPassword(rs.getString("password"));
+				user.setPhone(rs.getString("phone"));
+				user.setName(rs.getString("nickname"));
+				user.setAddr(rs.getString("addr"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.close(rs);
+			DB.close(conn);
+		}
+		return user;
 	}
 
 	@Override

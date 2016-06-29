@@ -11,8 +11,7 @@
 		String password = request.getParameter("password");
 		String phone = request.getParameter("phone");
 		String auth = request.getParameter("auth");
-		String name = request.getParameter("name");
-		String pid = request.getParameter("pid");
+		String nickname = request.getParameter("nickname");
 		String addr = request.getParameter("addr");
 		Date rdate = new Date(System.currentTimeMillis());
 		Date cpdate = new Date(System.currentTimeMillis());
@@ -20,11 +19,11 @@
 		user.setUsername(username);
 		user.setPassword(password);
 		user.setPhone(phone);
-		user.setName(name);
+		user.setName(nickname);
 		user.setAddr(addr);
 		user.setRdate(rdate);
 		user.setCpdate(cpdate);
-
+		user.setAuth("auth");
 		user.save();
 	}
 %>
@@ -62,18 +61,12 @@
 			</tr>
 
 			<tr>
+				<td>昵称：</td>
+				<td><input type="text" name="nickname" size="30" maxlength="20"></td>
+			</tr>
+			<tr>
 				<td>验证码：</td>
-				<td><input type="text" name="auth" size="30" maxlength="10"></td>
-			</tr>
-
-			<tr>
-				<td>姓名：</td>
-				<td><input type="text" name="name" size="30" maxlength="8"></td>
-			</tr>
-
-			<tr>
-				<td>身份证：</td>
-				<td><input type="text" name="pid" size="30" maxlength="20"></td>
+				<td><input type="text" name="auth" size="30" maxlength="20"></td>
 			</tr>
 
 			<tr>

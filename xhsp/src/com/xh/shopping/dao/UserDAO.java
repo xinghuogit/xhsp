@@ -32,10 +32,11 @@ public interface UserDAO {
 
 	/**
 	 * 检查用户名是否已经注册
+	 * 
 	 * @param user
 	 */
 	public void isUser(User user);
-	
+
 	/**
 	 * 更新用户信息
 	 * 
@@ -56,6 +57,14 @@ public interface UserDAO {
 	 * @param id
 	 */
 	public void loadById(int id);
+
+	/**
+	 * 验证用户名字以及密码
+	 * 
+	 * @param username
+	 * @param password
+	 */
+	public User loadByUserNmaePassword(String username, String password);
 
 	/**
 	 * 获取所有用户
