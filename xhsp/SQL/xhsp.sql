@@ -51,6 +51,25 @@ memberprice double,
 count int 
 );
 
+--创建订单的表格
+create table salesorder
+(
+id int primary key auto_increment,
+userid int,
+addr varchar(255),
+adate datetime,
+status int
+);
+
+--创建订单每个商品的表格
+create table salesitem
+(
+id int primary key auto_increment,
+productid int,
+unitprice double,
+pcount int,
+orderid int
+);
 
 
 
