@@ -53,8 +53,11 @@ public class DB {
 		// "jdbc:mysql://rds861y2gckfb4dvlus4.mysql.rds.aliyuncs.com:3306/xhspsql",
 		// "xhspsql", "liLJM371916");// 阿里云数据库
 		connection = DriverManager.getConnection(
-				"jdbc:mysql://xhmysql-li160.tenxcloud.net:23105/xhspsql",
-				"admin", "5Z0JR0uNzq0G");// 时速云数据库服务器
+				"jdbc:mysql://xhmysql-li160.tenxcloud.net:59985/xhspsql",
+				"admin", "eC2J5mQHJ3mD");// 时速云数据库服务器
+		// connection = DriverManager.getConnection(
+		// "jdbc:mysql://xhmysql-li160.tenxcloud.net:23105/xhspsql",
+		// "admin", "5Z0JR0uNzq0G");// 时速云数据库服务器
 
 		// int lport = 3307;// 本地端口
 		// String rhost = "xhserver-li160.tenxcloud.net";// 远程MySQL服务器
@@ -112,6 +115,28 @@ public class DB {
 		PreparedStatement PStatement = null;
 		try {
 			PStatement = connection.prepareStatement(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return PStatement;
+	}
+
+	/**
+	 * 
+	 * @param connection
+	 *            传入的数据库连接
+	 * @param sql
+	 *            SQL语句
+	 * @param generatedKey
+	 *            返回当前插入的数据
+	 * @return PreparedStatement PStatement 执行SQL语句带参的语句
+	 */
+	public static PreparedStatement getPStatement(Connection connection,
+			String sql, boolean generatedKey) {
+		PreparedStatement PStatement = null;
+		try {
+			PStatement = connection.prepareStatement(sql,
+					Statement.RETURN_GENERATED_KEYS);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

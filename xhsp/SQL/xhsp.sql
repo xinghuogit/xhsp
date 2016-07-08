@@ -58,7 +58,7 @@ id int primary key auto_increment,
 userid int,
 addr varchar(255),
 adate datetime,
-status int
+state int
 );
 
 --创建订单每个商品的表格
