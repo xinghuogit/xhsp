@@ -49,10 +49,29 @@ public interface CartDAO {
 	public boolean updateCart(Cart cart);
 
 	/**
+	 * 更新多个购物车信息商品
+	 * 
+	 * @param carts
+	 *            购物车信息
+	 * @param state
+	 *            状态信息
+	 * @return
+	 */
+	public boolean updateCart(List<Cart> carts, int state);
+
+	/**
 	 * 根据用户id获取该用户购物车商品的信息
 	 * 
 	 * @param userid
 	 * @return
 	 */
 	public List<Cart> getCarts(int userid);
+
+	/**
+	 * 删除多个购物车项
+	 * 
+	 * @param carts
+	 * @return
+	 */
+	public boolean deleteCarts(List<Cart> carts);
 }

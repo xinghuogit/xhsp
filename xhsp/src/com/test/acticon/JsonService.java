@@ -1,11 +1,8 @@
 package com.test.acticon;
 
-import java.io.BufferedReader;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,11 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.fileupload.FileItemIterator;
-import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.fileupload.util.Streams;
 
+import com.xh.shopping.model.Cart;
 import com.xh.shopping.util.RequestContentType;
 
 /**
@@ -131,5 +126,6 @@ public class JsonService extends HttpServlet {
 		// String json2 = JSONUtil.getInstance().getJSON("0000", "成功", user2);
 		// System.out.println("json2:" + json2);
 		// }
+
 	}
 }

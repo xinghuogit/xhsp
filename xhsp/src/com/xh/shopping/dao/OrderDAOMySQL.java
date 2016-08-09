@@ -21,6 +21,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.xh.shopping.jdbc.DB;
+import com.xh.shopping.manage.CartMgr;
 import com.xh.shopping.model.Cart;
 import com.xh.shopping.model.SalesOrder;
 
@@ -74,7 +75,6 @@ public class OrderDAOMySQL implements OrderDAO {
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
-
 			return false;
 		} finally {
 			DB.close(ps);

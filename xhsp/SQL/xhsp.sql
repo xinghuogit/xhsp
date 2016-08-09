@@ -48,7 +48,8 @@ productid int,
 productname varchar(255),
 normalprice double,
 memberprice double,
-count int 
+count int, 
+state int #状态1为未完成 2为已完成 
 );
 
 --创建订单的表格
@@ -58,7 +59,7 @@ id int primary key auto_increment,
 userid int,
 addr varchar(255),
 adate datetime,
-state int
+state int #状态1为未支付 2为已支付 
 );
 
 --创建订单每个商品的表格

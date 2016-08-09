@@ -79,6 +79,10 @@ public class CartMgr {
 		return dao.updateCart(cart);
 	}
 
+	public boolean updateCarts(List<Cart> carts, int state) {
+		return dao.updateCart(carts, state);
+	}
+
 	public double getTotalPrice(List<Cart> carts) {
 		if (carts == null || carts.size() <= 0) {
 			return 0;
@@ -89,5 +93,15 @@ public class CartMgr {
 		}
 		value = Math.round(value * 100) / 100;
 		return value;
+	}
+
+	/**
+	 * 删除多个购物车项目
+	 * 
+	 * @param carts
+	 * @return
+	 */
+	public boolean deleteCarts(List<Cart> carts) {
+		return dao.deleteCarts(carts);
 	}
 }

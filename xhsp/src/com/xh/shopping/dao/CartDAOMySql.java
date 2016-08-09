@@ -17,6 +17,7 @@ package com.xh.shopping.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -116,6 +117,11 @@ public class CartDAOMySql implements CartDAO {
 	}
 
 	@Override
+	public boolean updateCart(List<Cart> carts, int state) {
+		return false;
+	}
+
+	@Override
 	public List<Cart> getCarts(int userid) {
 		Connection conn = null;
 		ResultSet rs = null;
@@ -143,5 +149,32 @@ public class CartDAOMySql implements CartDAO {
 			DB.close(conn);
 		}
 		return carts;
+	}
+
+	@Override
+	public boolean deleteCarts(List<Cart> carts) {
+		Connection conn = null;
+		String sql;
+		StringBuffer buffer = new StringBuffer(
+				"delete from cart where id in(");
+		try {
+			conn = DB.getConnection();
+			for (int i = 0; i < carts.size(); i++) {
+				if (i == (carts.size() - 1)) {
+					buffer.append(carts.get(i).getId() + ");");
+				} else {
+					buffer.append(carts.get(i).getId() + ",");
+				}
+			}
+			sql = buffer.toString();
+			System.out.println("sql:" + sql);
+			DB.executeUpdata(conn, sql);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			DB.close(conn);
+		}
+		return true;
 	}
 }
