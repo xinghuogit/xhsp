@@ -5,7 +5,7 @@
 <%@page import="com.xh.shopping.manage.CartMgr"%>
 <%@page import="com.xh.shopping.util.StringUtil"%>
 <%@page import="java.util.Iterator"%>
-
+<%@ include file="_usersessioncheck.jsp"%>
 <%
 	String strId = request.getParameter("userid");
 	int id = -1;

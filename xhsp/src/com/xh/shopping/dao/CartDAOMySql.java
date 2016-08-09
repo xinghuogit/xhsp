@@ -102,6 +102,8 @@ public class CartDAOMySql implements CartDAO {
 					+ cart.getProductid();
 			ps = DB.getPStatement(conn, sql);
 			ps.setString(1, cart.getProductname());
+			System.out
+					.println("cart.getProductname():" + cart.getProductname());
 			ps.setDouble(2, cart.getNormalprice());
 			ps.setDouble(3, cart.getMemberprice());
 			ps.setInt(4, cart.getCount());
@@ -155,8 +157,7 @@ public class CartDAOMySql implements CartDAO {
 	public boolean deleteCarts(List<Cart> carts) {
 		Connection conn = null;
 		String sql;
-		StringBuffer buffer = new StringBuffer(
-				"delete from cart where id in(");
+		StringBuffer buffer = new StringBuffer("delete from cart where id in(");
 		try {
 			conn = DB.getConnection();
 			for (int i = 0; i < carts.size(); i++) {

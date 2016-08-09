@@ -45,6 +45,7 @@ public class OrderDAOMySQL implements OrderDAO {
 			ps = DB.getPStatement(conn, sql, true);
 			ps.setInt(1, so.getUser().getId());
 			ps.setString(2, so.getAddr());
+			System.out.println("so.getAddr():" + so.getAddr());
 			ps.setTimestamp(3, so.getAdate());
 			ps.setInt(4, 0);
 			ps.executeUpdate();
