@@ -10,7 +10,11 @@
 	<form action="Upload" method="post" enctype="multipart/form-data">
 		<input type="file" name="file"><br> <input type="submit"
 			value="submit">
+
+		<td><input type="text" name="username" size="10" maxlength="10">
 	</form>
+
+
 	index.jsp 未找到页面
 </body>
 </html>

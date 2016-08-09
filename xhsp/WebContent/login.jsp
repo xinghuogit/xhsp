@@ -47,8 +47,7 @@
 			</tr>
 			<tr>
 				<td>密码：</td>
-				<td><input type="password" name="password" size="30"
-					maxlength="30"></td>
+				<td><input type="password" name="password" size="30" maxlength="30"></td>
 			</tr>
 
 			<tr>

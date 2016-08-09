@@ -49,12 +49,14 @@
 	</table>
 	<center>
 		共<%=CartMgr.getInstance().getTotalPrice(carts)%>
-		<br> <br> 欢迎您 <%=user.getName()%> 请确认您的送货信息
+		<br> <br> 欢迎您
+		<%=user.getName()%>
+		请确认您的送货信息
 
 		<form action="order.jsp" method="post">
 			送货信息:<br>
-			<textarea name="addr"><%=user.getAddr()%></textarea><br>
-			<input type="submit" value="确认下单">
+			<textarea name="addr"><%=user.getAddr()%></textarea>
+			<br> <input type="submit" value="确认下单">
 		</form>
 	</center>
 </body>

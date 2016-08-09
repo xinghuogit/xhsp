@@ -52,9 +52,17 @@ public class DB {
 		// .getConnection(
 		// "jdbc:mysql://rds861y2gckfb4dvlus4.mysql.rds.aliyuncs.com:3306/xhspsql",
 		// "xhspsql", "liLJM371916");// 阿里云数据库
+//		connection = DriverManager.getConnection(
+//				"jdbc:mysql://xhmysql-li160.tenxcloud.net:59985/xhspsql",
+//				"admin", "eC2J5mQHJ3mD");// 时速云数据库服务器
+		/**
+		 * 本地
+		 */
 		connection = DriverManager.getConnection(
-				"jdbc:mysql://xhmysql-li160.tenxcloud.net:59985/xhspsql",
-				"admin", "eC2J5mQHJ3mD");// 时速云数据库服务器
+				"jdbc:mysql://localhost:3306/xhspsql",
+				"root", "123456");
+		
+		// 时速云数据库服务器 1
 		// connection = DriverManager.getConnection(
 		// "jdbc:mysql://xhmysql-li160.tenxcloud.net:23105/xhspsql",
 		// "admin", "5Z0JR0uNzq0G");// 时速云数据库服务器
