@@ -61,6 +61,16 @@ public class OrderMgr {
 	};
 
 	/**
+	 * 根据交易id寻找交易的信息
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public SalesOrder loadById(int id) {
+		return dao.loadById(id);
+	};
+
+	/**
 	 * 返回全部交易列表数据
 	 * 
 	 * @return

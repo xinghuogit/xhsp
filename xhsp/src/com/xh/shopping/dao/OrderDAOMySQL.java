@@ -91,6 +91,45 @@ public class OrderDAOMySQL implements OrderDAO {
 	}
 
 	@Override
+	public SalesOrder loadById(int id) {
+		Connection conn = null;
+		ResultSet rs = null;
+		SalesOrder so = null;
+		try {
+			conn = DB.getConnection();
+			String sql = "select salesorder.id, salesorder.userid, salesorder.addr, salesorder.adate, "
+					+ "salesorder.state, ruser.id rId, ruser.username, ruser.phone, "
+					+ "ruser.nickname, ruser.addr rAddr, ruser.rdate "
+					+ "from salesorder join ruser on (salesorder.userid = ruser.id) where salesorder.id = "
+					+ id;
+			// left from 如果游客可以取出来
+			rs = DB.executeQuery(conn, sql);
+			while (rs.next()) {
+				User user = new User();
+				user.setId(rs.getInt("rId"));
+				user.setUsername(rs.getString("username"));
+				user.setPhone(rs.getString("phone"));
+				user.setName(rs.getString("nickname"));
+				user.setAddr(rs.getString("rAddr"));
+				user.setRdate(rs.getTimestamp("rdate"));
+
+				so = new SalesOrder();
+				so.setId(rs.getInt("id"));
+				so.setAddr(rs.getString("addr"));
+				so.setAdate(rs.getTimestamp("adate"));
+				so.setState(rs.getInt("state"));
+				so.setUser(user);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.close(rs);
+			DB.close(conn);
+		}
+		return so;
+	}
+
+	@Override
 	public List<SalesOrder> getSOS() {
 		return null;
 	}
@@ -153,7 +192,6 @@ public class OrderDAOMySQL implements OrderDAO {
 	public int getSalesItem(SalesOrder so) {
 		Connection conn = null;
 		ResultSet rs = null;
-		ResultSet rsCount = null;
 		int pageCount = 0;
 		List<SalesItem> sis = new ArrayList<SalesItem>();
 		try {
@@ -187,7 +225,6 @@ public class OrderDAOMySQL implements OrderDAO {
 			e.printStackTrace();
 		} finally {
 			DB.close(rs);
-			DB.close(rsCount);
 			DB.close(conn);
 		}
 		return pageCount;

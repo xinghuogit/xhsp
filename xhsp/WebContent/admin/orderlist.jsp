@@ -58,6 +58,7 @@
 			<td><%=so.getAdate()%></td>
 			<td><%=so.getState() == 0 ? "未完成" : "已支付"%></td>
 			<td><a href="orderdetail.jsp?id=<%=i%>">订单明细</a></td>
+			<td><a href="ordermodfiy.jsp?id=<%=so.getId()%>">订单明细</a></td>
 		</tr>
 		<%
 			}

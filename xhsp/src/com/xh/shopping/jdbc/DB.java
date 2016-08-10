@@ -61,7 +61,7 @@ public class DB {
 		 */
 		String url = "jdbc:mysql://localhost:3306/xhspsql";
 		String user = "root";
-		String password = "";
+		String password = "123456";
 		connection = DriverManager.getConnection(url, user, password);
 
 		// 时速云数据库服务器 1

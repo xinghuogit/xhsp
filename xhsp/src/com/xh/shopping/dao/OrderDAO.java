@@ -32,6 +32,14 @@ public interface OrderDAO {
 	public boolean addOrder(SalesOrder so);
 
 	/**
+	 * 根据交易id寻找交易的信息
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public SalesOrder loadById(int id);
+
+	/**
 	 * 返回全部交易列表数据
 	 * 
 	 * @return

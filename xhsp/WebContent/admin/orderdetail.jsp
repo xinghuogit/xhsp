@@ -10,7 +10,7 @@
 <%@ include file="_sessioncheck.jsp"%>
 <%
 	List<SalesOrder> sos = (List<SalesOrder>) session
-			.getAttribute("sos");
+	.getAttribute("sos");
 	if (sos == null) {
 		out.println("没有任何交易项");
 		return;
@@ -33,6 +33,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
+<script type="text/javascript">
+	function showProductInfo(descr) {
+		document.getElementById("productInfo").innerHTML = "<font size=3 color=red>"
+				+ descr + "</font>"
+	}
+</script>
+
 
 <title>订单明细</title>
 </head>
@@ -42,28 +49,30 @@
 		送货地址：<%=so.getAddr()%><br> 购买用户：<%=so.getUser().getUsername()%><br>
 		下单时间：<%=so.getAdate()%><br> 商品总价：<%=OrderMgr.getInstance().getTotalPrice(sis)%><br>
 		订单状态：<%=so.getState() == 0 ? "未完成" : "已支付"%><br>
-	</center>
-	<table border="1" align="center">
-		<tr>
-			<td>商品名称</td>
-			<td>商品单价</td>
-			<td>商品数量</td>
-			<td>商品总价</td>
-		</tr>
 
-		<%
-			for (int i = 0; i < sis.size(); i++) {
-				SalesItem si = sis.get(i);
-		%>
-		<tr>
-			<td><%=si.getProduct().getName()%></td>
-			<td><%=si.getUnitprice()%></td>
-			<td><%=si.getPcount()%></td>
-			<td><%=si.getTotalPrice()%></td>
-		</tr>
-		<%
-			}
-		%>
-	</table>
+		<table border="1" align="center">
+			<tr>
+				<td>商品名称</td>
+				<td>商品单价</td>
+				<td>商品数量</td>
+				<td>商品总价</td>
+			</tr>
+
+			<%
+				for (int i = 0; i < sis.size(); i++) {
+					SalesItem si = sis.get(i);
+			%>
+			<tr>
+				<td onmouseover="showProductInfo('<%=si.getProduct().getDescr()%>')"><%=si.getProduct().getName()%></td>
+				<td><%=si.getUnitprice()%></td>
+				<td><%=si.getPcount()%></td>
+				<td><%=si.getTotalPrice()%></td>
+			</tr>
+			<%
+				}
+			%>
+		</table>
+		<div style="border: 5px double purple; width: 400;" id="productInfo">&nbsp;</div>
+	</center>
 </body>
 </html>
