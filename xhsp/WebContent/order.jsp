@@ -31,7 +31,7 @@
 	so.setState(1);
 	boolean state = OrderMgr.getInstance().addOrder(so);
 	if (state) {
-		// CartMgr.getInstance().deleteCarts(carts); 
+		CartMgr.getInstance().deleteCarts(carts);
 	}
 	session.removeAttribute("carts");
 %>

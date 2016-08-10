@@ -19,21 +19,22 @@ import java.util.List;
 
 /**
  * @filename 文件名称：SalesOrder.java
- * @contents 内容摘要：
+ * @contents 内容摘要：交易列表
  */
 public class SalesOrder {
-	private String id;
+	private int id;
 	private User user;
 	private String addr;
 	private Timestamp adate;
 	private int state;
 	private List<Cart> carts;
+	private List<SalesItem> salesItems;
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -77,4 +78,11 @@ public class SalesOrder {
 		this.carts = carts;
 	}
 
+	public List<SalesItem> getSalesItems() {
+		return salesItems;
+	}
+
+	public void setSalesItems(List<SalesItem> salesItems) {
+		this.salesItems = salesItems;
+	}
 }

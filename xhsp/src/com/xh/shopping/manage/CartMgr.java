@@ -89,7 +89,7 @@ public class CartMgr {
 		}
 		double value = 0;
 		for (int i = 0; i < carts.size(); i++) {
-			value = +carts.get(i).getMemberTotalPrice();
+			value += carts.get(i).getMemberTotalPrice();
 		}
 		value = Math.round(value * 100) / 100;
 		return value;

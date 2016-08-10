@@ -99,12 +99,12 @@
 			</dl>
 			<dl id="menu-article">
 				<dt>
-					<i class="Hui-iconfont">&#xe601;</i> 视频管理<i
+					<i class="Hui-iconfont">&#xe601;</i> 交易管理<i
 						class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
 				</dt>
 				<dd>
 					<ul>
-						<li><a _href="map.html" href="javascript:void(0)">视频管理</a></li>
+						<li><a _href="orderlist.jsp" href="javascript:void(0)">交易列表</a></li>
 					</ul>
 				</dd>
 			</dl>

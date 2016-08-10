@@ -54,7 +54,7 @@
 		<%=user.getName()%>
 		请确认您的送货信息
 
-		<form action="order1.jsp" method="post">
+		<form action="order.jsp" method="post">
 			送货信息:<br>
 			<textarea name="addr"><%=user.getAddr()%></textarea>
 			<br> <input type="submit" value="确认下单">
