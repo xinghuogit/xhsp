@@ -52,16 +52,18 @@ public class DB {
 		// .getConnection(
 		// "jdbc:mysql://rds861y2gckfb4dvlus4.mysql.rds.aliyuncs.com:3306/xhspsql",
 		// "xhspsql", "liLJM371916");// 阿里云数据库
-//		connection = DriverManager.getConnection(
-//				"jdbc:mysql://xhmysql-li160.tenxcloud.net:59985/xhspsql",
-//				"admin", "eC2J5mQHJ3mD");// 时速云数据库服务器
+		// connection = DriverManager.getConnection(
+		// "jdbc:mysql://xhmysql-li160.tenxcloud.net:59985/xhspsql",
+		// "admin", "eC2J5mQHJ3mD");// 时速云数据库服务器
+
 		/**
 		 * 本地
 		 */
-		connection = DriverManager.getConnection(
-				"jdbc:mysql://localhost:3306/xhspsql",
-				"root", "123456");
-		
+		String url = "jdbc:mysql://localhost:3306/xhspsql";
+		String user = "root";
+		String password = "";
+		connection = DriverManager.getConnection(url, user, password);
+
 		// 时速云数据库服务器 1
 		// connection = DriverManager.getConnection(
 		// "jdbc:mysql://xhmysql-li160.tenxcloud.net:23105/xhspsql",
