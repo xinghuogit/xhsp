@@ -4,7 +4,7 @@
 <%@page import="com.xh.shopping.manage.CartMgr"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ include file="_usersessioncheck.jsp"%>
 <%
 	String strId = request.getParameter("userid");
 	int id = -1;
@@ -27,6 +27,7 @@
 		if (!StringUtil.isEmpty(strCount)) {
 			int count = Integer.parseInt(strCount);
 			item.setCount(count);
+			/* item.setProductname(i+"useraddr:"+user.getAddr()); */
 			CartMgr.getInstance().updateCart(item);
 		}
 	}

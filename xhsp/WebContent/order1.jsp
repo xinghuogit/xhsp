@@ -10,7 +10,6 @@
 
 <%@include file="_usersessioncheck.jsp"%>
 
-
 <%
 	List<Cart> carts = (List<Cart>) session.getAttribute("carts");
 	if (carts == null) {
@@ -19,6 +18,7 @@
 	}
 %>
 <%
+	request.setCharacterEncoding("utf-8");
 	String addr = request.getParameter("addr");
 	if (StringUtil.isEmpty(addr)) {
 		addr = user.getAddr();
@@ -31,7 +31,7 @@
 	so.setState(1);
 	boolean state = OrderMgr.getInstance().addOrder(so);
 	if (state) {
-		CartMgr.getInstance().deleteCarts(carts);
+		// CartMgr.getInstance().deleteCarts(carts); 
 	}
 	session.removeAttribute("carts");
 %>
