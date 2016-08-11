@@ -1,6 +1,7 @@
 package com.xh.shopping.action;
 
 import java.awt.Dimension;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -28,18 +29,17 @@ public class ChartDemo extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		resp.setContentType("image/jpeg");// 将输出设置为image/jepg格式
-//		JFreeChart chart = null;
-//		JFreeChartUtil.getInstance().getPie(chart);
-//		
-//		ChartUtilities.writeChartAsJPEG(resp.getOutputStream(), 1.0f, chart,
-//				800, 450, null);// 输出图表
-		
+		// JFreeChart chart = null;
+		// JFreeChartUtil.getInstance().getPie(chart);
+		//
+		// ChartUtilities.writeChartAsJPEG(resp.getOutputStream(), 1.0f, chart,
+		// 800, 450, null);// 输出图表
+
 		JFreeChart chart2 = null;
 		JFreeChartUtil.getInstance().geti(chart2);
-		
-		ChartUtilities.writeChartAsJPEG(resp.getOutputStream(), 1.0f, chart2,
-				800, 450, null);// 输出图表
-		
+		FileOutputStream fos = new FileOutputStream("F:\\fff.jpg");
+		ChartUtilities.writeChartAsJPEG(fos, 100, chart2, 800, 450, null);// 输出图表
+
 	}
 
 }
