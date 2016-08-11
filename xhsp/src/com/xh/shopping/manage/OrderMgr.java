@@ -127,4 +127,8 @@ public class OrderMgr {
 		return value;
 	}
 
+	public boolean updateStatus(SalesOrder so) {
+		return dao.updateStatus(so);
+	}
+
 }

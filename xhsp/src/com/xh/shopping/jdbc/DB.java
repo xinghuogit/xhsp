@@ -165,10 +165,33 @@ public class DB {
 		ResultSet resultSet = null;
 		try {
 			resultSet = statement.executeQuery(sql);
+			// resultSet = statement.execu
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return resultSet;
+	}
+
+	public static boolean execute(Statement statement, String sql) {
+		System.out.println("sql:" + sql);
+		boolean execute = false;
+		try {
+			execute = statement.execute(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return execute;
+	}
+
+	public static int executeUpdate(Statement statement, String sql) {
+		System.out.println("sql:" + sql);
+		int execute = 0;
+		try {
+			execute = statement.executeUpdate(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return execute;
 	}
 
 	/**

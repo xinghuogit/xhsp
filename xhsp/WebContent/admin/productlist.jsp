@@ -58,6 +58,7 @@
 			<td><a href="productmodify.jsp?id=<%=product.getId()%>">修改商品</a>
 			</td>
 			<td><a href="categoryadd.jsp?id=<%=product.getId()%>">删除商品</a></td>
+			<td><a href="productimageup.jsp?id=<%=product.getId()%>">图片上传</a></td>
 		</tr>
 		<%
 			}

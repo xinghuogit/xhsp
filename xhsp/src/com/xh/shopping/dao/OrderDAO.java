@@ -81,4 +81,12 @@ public interface OrderDAO {
 	 * @return
 	 */
 	public int getSalesItem(SalesOrder so);
+
+	/**
+	 * 更新status
+	 * 
+	 * @param so
+	 * @return
+	 */
+	public boolean updateStatus(SalesOrder so);
 }

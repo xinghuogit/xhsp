@@ -18,13 +18,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.xh.shopping.jdbc.DB;
-import com.xh.shopping.manage.CartMgr;
 import com.xh.shopping.model.Cart;
-import com.xh.shopping.model.Category;
 import com.xh.shopping.model.Product;
 import com.xh.shopping.model.SalesItem;
 import com.xh.shopping.model.SalesOrder;
@@ -228,5 +227,25 @@ public class OrderDAOMySQL implements OrderDAO {
 			DB.close(conn);
 		}
 		return pageCount;
+	}
+
+	@Override
+	public boolean updateStatus(SalesOrder so) {
+		Connection conn = null;
+		Statement st = null;
+		try {
+			conn = DB.getConnection();
+			st = DB.getStatement(conn);
+			String sql = "update salesorder set state = " + so.getState()
+					+ " where id = " + so.getId();
+			DB.executeUpdate(st, sql);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			DB.close(st);
+			DB.close(conn);
+		}
+		return true;
 	}
 }

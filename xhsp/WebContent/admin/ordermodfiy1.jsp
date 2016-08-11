@@ -7,27 +7,18 @@
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
 <%@page import="com.xh.shopping.util.StringUtil"%>
-<%@ include file="_sessioncheck.jsp"%>
 <%
-	int id = Integer.parseInt(request.getParameter("id"));
-	SalesOrder so = OrderMgr.getInstance().loadById(id);
-	String action = request.getParameter("action");
-	if(action != null && action.equals("modfiy")){
-		int status = Integer.parseInt(request.getParameter("status"));
-		so.setState(status);
-		OrderMgr.getInstance().updateStatus(so);
-	}
+	SalesOrder so = new SalesOrder();
+	so.setState(2);
 %>
 
 <center>
-	下单人：<%=so.getUser().getUsername()%>
+	下单人：<%=so.getState()%>
 	<form name="form" action="ordermodfiy.jsp" method="post">
-		<input type="hidden" name="action" value="modfiy"> <input
-			type="hidden" name="id" value="<%=id%>"> <select
-			name="status">
-			<option value="0">未处理</option>
+		<select name="status">
 			<option value="1">已处理</option>
 			<option value="2">废单</option>
+			<option value="0">未处理</option>
 		</select> <br> <input type="submit" value="提交">
 	</form>
 </center>

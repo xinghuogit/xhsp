@@ -219,7 +219,7 @@
 					%>
 					<li><a href="productdetailshow.jsp?id=<%=product.getId()%>"
 						title="<%=product.getName()%>" target="_blank"><img
-							src="./image/store_logo.png_c292x292"
+							src="./image/product/<%=product.getId()%>.jpg"
 							alt="<%=product.getName()%>"></a>
 						<div class="store_list_info">
 							<p class="store_list_tilte">
