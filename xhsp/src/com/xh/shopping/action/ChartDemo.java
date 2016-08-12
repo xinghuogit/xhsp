@@ -29,17 +29,24 @@ public class ChartDemo extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		resp.setContentType("image/jpeg");// 将输出设置为image/jepg格式
-		// JFreeChart chart = null;
-		// JFreeChartUtil.getInstance().getPie(chart);
-		//
-		// ChartUtilities.writeChartAsJPEG(resp.getOutputStream(), 1.0f, chart,
-		// 800, 450, null);// 输出图表
+		// JFreeChart chart = JFreeChartUtil.getInstance().getPie();
+		// if (chart == null) {
+		// System.out.println("null");
+		// } else {
+		// System.out.println("!null");
+		// }
+		// FileOutputStream fos = new FileOutputStream("F:\\fff.jpg");
+		// ChartUtilities.writeChartAsJPEG(fos, 1.0f, chart, 800, 450, null);//
+		// 输出图表
 
-		JFreeChart chart2 = null;
-		JFreeChartUtil.getInstance().geti(chart2);
-		FileOutputStream fos = new FileOutputStream("F:\\fff.jpg");
-		ChartUtilities.writeChartAsJPEG(fos, 100, chart2, 800, 450, null);// 输出图表
-
+		JFreeChart chart2 = JFreeChartUtil.getInstance().geti();
+		if (chart2 == null) {
+			System.out.println("null");
+		} else {
+			System.out.println("!null");
+		}
+		FileOutputStream fos1 = new FileOutputStream("F:\\fff1.jpg");
+		ChartUtilities.writeChartAsJPEG(fos1, 1.0f, chart2, 800, 450, null);//
+		ChartUtilities.writeChartAsJPEG(fos1, 1.0f, chart2, 800, 400, null);
 	}
-
 }

@@ -4,6 +4,15 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
 	id="WebApp_9" version="2.4">
 	<servlet>
+		<servlet-name>ShowProductSales</servlet-name>
+		<servlet-class>com.xh.shopping.action.ShowProductSales</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ShowProductSales</servlet-name>
+		<url-pattern>/showproductsales.json</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
 		<servlet-name>UserRegister</servlet-name>
 		<servlet-class>com.xh.shopping.action.UserRegister</servlet-class>
 	</servlet>
@@ -66,7 +75,6 @@
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
-
 	<servlet>
 		<servlet-name>DisplayChart</servlet-name>
 		<servlet-class>org.jfree.chart.servlet.DisplayChart</servlet-class>
@@ -75,6 +83,4 @@
 		<servlet-name>DisplayChart</servlet-name>
 		<url-pattern>/servlet/DisplayChart</url-pattern>
 	</servlet-mapping>
-
-
 </web-app>

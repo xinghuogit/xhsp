@@ -439,7 +439,8 @@ public class ProductDAOMySQL implements ProductDAO {
 		List<Product> products = new ArrayList<Product>();
 		try {
 			conn = DB.getConnection();
-			String sql = "select * from product order by pdate desc limit 0," + count;
+			String sql = "select * from product order by pdate desc limit 0,"
+					+ count;
 			rs = DB.executeQuery(conn, sql);
 			while (rs.next()) {
 				Product p = new Product();
@@ -450,6 +451,30 @@ public class ProductDAOMySQL implements ProductDAO {
 				p.setMemberPrice(rs.getDouble("memberPrice"));
 				p.setPdate(rs.getTimestamp("pdate"));
 				p.setCategoryId(rs.getInt("categoryId"));
+				products.add(p);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.close(rs);
+			DB.close(conn);
+		}
+		return products;
+	}
+
+	@Override
+	public List<Product> getSalesProductsSum() {
+		Connection conn = null;
+		ResultSet rs = null;
+		List<Product> products = new ArrayList<Product>();
+		try {
+			conn = DB.getConnection();
+			String sql = "select p.name, sum(pcount) from product p join salesitem si on (p.id = si.productid) group by p.id";
+			rs = DB.executeQuery(conn, sql);
+			while (rs.next()) {
+				Product p = new Product();
+				p.setName(rs.getString(1));
+				p.setSum(rs.getInt(2));
 				products.add(p);
 			}
 		} catch (Exception e) {

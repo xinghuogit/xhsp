@@ -168,4 +168,12 @@ public interface ProductDAO {
 	 */
 	public List<Product> getLatestProducts(int count);
 
+	/**
+	 * 获取该商品交易总数
+	 * 
+	 * @param products
+	 * @return
+	 */
+	public List<Product> getSalesProductsSum();
+
 }

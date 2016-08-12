@@ -58,22 +58,23 @@ public class JFreeChartUtil {
 	/**
 	 * 饼装
 	 */
-	public void getPie(JFreeChart chart) {
+	public JFreeChart getPie() {
 		DefaultPieDataset dpd = new DefaultPieDataset();
 		dpd.setValue("管理人员", 25);
 		dpd.setValue("市场人员", 35);
 		dpd.setValue("开发人员", 20);
 		dpd.setValue("后勤人员", 5);
 		dpd.setValue("财务人员", 15);
-		chart = ChartFactory.createPieChart("CityInfoPort公司组织架构图", dpd, true,
-				true, true);
+		JFreeChart chart = ChartFactory.createPieChart("CityInfoPort公司组织架构图",
+				dpd, true, true, true);
 		setFont(chart);// 设置字体以及百分比
 		ChartFrame frame = new ChartFrame("公司组织架构图CityInfoPort", chart, true);
 		frame.pack();
 		frame.setVisible(true);
+		return chart;
 	}
 
-	public void geti(JFreeChart chart) {
+	public JFreeChart geti() {
 		String series1 = "1";
 		String series2 = "2";
 		String series3 = "3";
@@ -105,8 +106,8 @@ public class JFreeChartUtil {
 		dataset.addValue(3.0, series3, category4);
 		dataset.addValue(6.0, series3, category5);
 
-		chart = ChartFactory.createBarChart("柱状图", "0", "0", dataset,
-				PlotOrientation.VERTICAL, false, false, false);
+		JFreeChart chart = ChartFactory.createBarChart("柱状图", "0", "0",
+				dataset, PlotOrientation.VERTICAL, false, false, false);
 
 		// 周围的背景色
 		chart.setBackgroundPaint(Color.white);
@@ -177,10 +178,11 @@ public class JFreeChartUtil {
 		// caxis.setLowerMargin(0.2);
 
 		ChartPanel chartPanel = new ChartPanel(chart);
-		
+
 		ChartFrame frame = new ChartFrame("公司组织架构图CityInfoPort", chart, true);
 		frame.pack();
 		frame.setVisible(true);
+		return chart;
 	}
 
 	/**

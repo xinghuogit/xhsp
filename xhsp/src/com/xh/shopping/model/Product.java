@@ -31,6 +31,7 @@ public class Product implements Serializable {
 	private double memberPrice;
 	private Timestamp pdate;
 	private int categoryId;
+	private int sum;
 
 	private Category category;
 
@@ -96,5 +97,13 @@ public class Product implements Serializable {
 
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+
+	public int getSum() {
+		return sum;
+	}
+
+	public void setSum(int sum) {
+		this.sum = sum;
 	}
 }

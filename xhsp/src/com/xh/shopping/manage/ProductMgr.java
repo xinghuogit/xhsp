@@ -221,4 +221,14 @@ public class ProductMgr {
 	public List<Product> getLatestProducts(int count) {
 		return dao.getLatestProducts(count);
 	}
+
+	/**
+	 * 获取该商品交易总数
+	 * 
+	 * @param products
+	 * @return
+	 */
+	public List<Product> getSalesProductsSum() {
+		return dao.getSalesProductsSum();
+	}
 }

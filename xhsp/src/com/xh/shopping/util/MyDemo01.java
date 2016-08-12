@@ -112,6 +112,7 @@ public class MyDemo01 extends ApplicationFrame {
 		TextTitle title = chart.getTitle();
 		// 设置标题字体
 		title.setFont(font);
+		
 		// 得到一个参考
 		CategoryPlot plot = (CategoryPlot) chart.getPlot();
 		// 生成图片的背景色
