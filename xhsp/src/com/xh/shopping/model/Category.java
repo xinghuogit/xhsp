@@ -14,10 +14,15 @@
  ************************************************************************************************/
 package com.xh.shopping.model;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.xh.shopping.dao.CategoryDAO;
+import com.xh.shopping.jdbc.DB;
 
 /**
  * @filename 文件名称：Category.java
@@ -172,5 +177,9 @@ public class Category {
 
 	public static boolean isLeaf(int id) {
 		return false;
+	}
+
+	public List<Category> getChilds(int id) {
+		return CategoryDAO.getChilds(id);
 	}
 }

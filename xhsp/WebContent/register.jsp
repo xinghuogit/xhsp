@@ -32,6 +32,42 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>星火商城会员注册</title>
+<script type="text/javascript">
+	var req;
+	function validate() {
+		var idField = document.getElementById("userid");
+		var url = "validate.jsp?id=" + escape(idField.value);
+		if (window.XMLHttpRequest) {
+			req = new XMLHttpRequest();
+		} else if (window.ActiveXObject) {
+			req = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		req.open("GET", url, true);
+		req.onreadystatechange = callback2;
+		req.send(null);
+	}
+
+	function callback2() {
+		if (req.readyState == 4) {
+			if (req.status == 200) {
+				var msg = req.responseXML.getElementsByTagName("msg")[0];
+				//				alert(msg.childNodes[0].nodeValue);
+				setMsg(msg.childNodes[0].nodeValue);
+			} else {
+				alert("错误");
+			}
+		}
+	}
+
+	function setMsg(msg) {
+		mdiv = document.getElementById("usermsg");
+		if (msg == "invalid1") {
+			mdiv.innerHTML = "<font color='red'>用户已存在</font>"
+		} else {
+			mdiv.innerHTML = "<font color='green'>检测通过，可以注册</font>"
+		}
+	}
+</script>
 </head>
 <body>
 	<form name="form" action="register.jsp" method="post">
@@ -40,7 +76,9 @@
 		<table style="width: 540; border: 2;" align="center">
 			<tr>
 				<td>账号：</td>
-				<td><input type="text" name="username" size="30" maxlength="20"></td>
+				<td><input type="text" name="username" id="userid" size="30"
+					maxlength="20" onblur="validate()"></td>
+				<td><span id="usermsg"></span>
 			</tr>
 
 			<tr>

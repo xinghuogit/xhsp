@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.xh.shopping.model.Category"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="com.xh.shopping.manage.ProductMgr"%>
 <%@page import="com.xh.shopping.model.Product"%>
@@ -5,10 +7,42 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<%!private String getSecondCategoryStr(List<Category> categories, Category topCategory) {
+		StringBuffer buffer = new StringBuffer();
+		int childCount = 1;
+		for(int i=0;i<categories.size();i++){
+			Category c = categories.get(i);
+			if(c.getPid() == topCategory.getId()){
+				buffer.append("document.form2.category2.options["+ childCount +"].text = '" +c.getName() +"';\n");
+				buffer.append("document.form2.category2.options["+ childCount +"].value = '" +c.getId() +"';\n");
+				childCount ++;
+			}
+		}
+		buffer.insert(0, "document.form2.category2.options[0].text = '请选择二级目录';\n");
+		buffer.insert(0, "document.form2.category2.options[0].value = '-1';\n");
+		buffer.insert(0, "document.form2.category2.selectedIndex = 0;\n");
+		buffer.insert(0, "document.form2.category2.options.length = " + childCount + ";\n");
+		buffer.insert(0, "if(document.form2.category1.options[document.form2.category1.selectedIndex].value == " + topCategory.getId() + "){");
+		buffer.append("}\n");
+		return buffer.toString();
+	}%>
+
 <%
 	int count = 10;
 	List<Product> products = ProductMgr.getInstance().getLatestProducts(count);
+	List<Category> categories = Category.getCategories();
+	List<Category> topCategories = new ArrayList<Category>();
+	String str =""; 
+	for(int i=0; i<categories.size(); i++){
+		Category category = categories.get(i);
+		if(category.getGrads() == 1){
+	    	topCategories.add(category);
+	    	str += getSecondCategoryStr(categories, category);
+	    	System.out.println(str);
+		}
+	}
 %>
+
 
 
 <html>
@@ -46,6 +80,114 @@
 </script>
 </head>
 <body>
+	<script type="text/javascript">
+		function changCategory1() {
+	<%=str%>
+		/* 	if (document.form2.category1.options[document.form2.category1.selectedIndex].value == 8) {
+																							document.form2.category2.options.length = 3;
+																							document.form2.category2.selectedIndex = 0;
+																							document.form2.category2.options[0].value = '-1';
+																							document.form2.category2.options[0].text = '请选择二级目录';
+																							document.form2.category2.options[1].text = '台式电脑';
+																							document.form2.category2.options[1].value = '9';
+																						} */
+			/* if (document.form2.category1.selectedIndex == 1) {
+								document.form2.category2.length = 3;
+								document.form2.category2.selectedIndex = 0;
+								document.form2.category2.options[0].text = "查询所有二级分类";
+								document.form2.category2.options[0].value = "-1";
+								document.form2.category2.options[1].text = "手机";
+								document.form2.category2.options[1].value = "1";
+								document.form2.category2.options[2].text = "手机苹果";
+								document.form2.category2.options[2].value = "2";
+							} */
+		}
+	</script>
+
+	<script type="text/javascript">
+		var req;
+		function changCategory() {
+			var idField = document.form2.category1.options[document.form2.category1.selectedIndex].value;
+			var url = "getchildcategory.jsp?id=" + escape(idField);
+			if (window.XMLHttpRequest) {
+				req = new XMLHttpRequest();
+			} else if (window.ActiveXObject) {
+				req = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			req.open("GET", url, true);
+			req.onreadystatechange = callback2;
+			req.send(null);
+		}
+
+		function callback2() {
+			if (req.readyState == 4) {
+				if (req.status == 200) {
+					parse(req.responseText);
+				} else {
+					alert("错误");
+				}
+			}
+		}
+
+		function parse(msg) {
+			msg = msg.replace(/(^\s*)|(\s*$)/g, "");
+			alert("msg:" + msg + "|");
+			if (msg == null || new String(msg) == "") {
+				document.form2.category2.length = 1;
+				document.form2.category2.selectedIndex = 0;
+				document.form2.category2.options[0].text = "查询所有二级分类";
+				document.form2.category2.options[0].value = "-1";
+				return;
+			}
+			var categories = msg.split("-");
+			document.form2.category2.length = categories.length + 1;
+			document.form2.category2.selectedIndex = 0;
+			document.form2.category2.options[0].text = "查询所有二级分类";
+			document.form2.category2.options[0].value = "-1";
+			for (var i = 0; i < categories.length; i++) {
+				var categoryprops = categories[i].split(",");
+				var id = categoryprops[0];
+				var name = categoryprops[1];
+				document.form2.category2.options[i + 1].text = name;
+				document.form2.category2.options[i + 1].value = id;
+			}
+		}
+	</script>
+
+	<form name=form2 action="rexsearchp.asp" method="post">
+		<tbody>
+			<tr>
+				<td width="211" height="26">
+					<div align="center">
+						<input id="action" type="hidden" value="1" name="action">
+						<select class="wenbenkuang" name="category1"
+							onchange="changCategory()">
+							<option value="0" selected>查询所有一级分类</option>
+							<%
+								for(int i=0; i<topCategories.size(); i++){
+													Category category =  topCategories.get(i);
+							%>
+							<option value="<%=category.getId()%>"><%=category.getName()%></option>
+							<%
+								}
+							%>
+						</select> <select class="wenbenkuang" name="category2">
+							<option value="0" selected>查询所有二级分类</option>
+							<!-- <option value="2">手机</option>
+							<option value="3">家用电器</option>
+							<option value="4">电脑</option>
+							<option value="5">运动户外</option>
+							<option value="6">家居、家具</option> -->
+						</select>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+
+
+	</form>
+
+
 	<div id="head">
 		<div class="head_top_bg">
 			<div class="center head_top">
@@ -214,8 +356,8 @@
 				<ul>
 					<%
 						if(products!=null && products.size()>0) {
-															   for(Iterator<Product> it = products.iterator(); it.hasNext();){
-																   Product product = it.next();
+																																																																																	   for(Iterator<Product> it = products.iterator(); it.hasNext();){
+																																																																																		   Product product = it.next();
 					%>
 					<li><a href="productdetailshow.jsp?id=<%=product.getId()%>"
 						title="<%=product.getName()%>" target="_blank"><img
@@ -233,7 +375,7 @@
 						</div></li>
 					<%
 						}
-																		} else {
+																																																																																				} else {
 					%>
 					<element>没有更多商品</element>
 					<%

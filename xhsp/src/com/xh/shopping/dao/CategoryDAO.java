@@ -18,6 +18,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.xh.shopping.jdbc.DB;
@@ -203,6 +205,45 @@ public class CategoryDAO {
 			DB.close(conn);
 		}
 		return category;
+	}
+
+	public static List<Category> getChilds(int id) {
+		List<Category> categories = new ArrayList<Category>();
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		try {
+			conn = DB.getConnection();
+			stmt = DB.getStatement(conn);
+			rs = DB.executeQuery(stmt, "select * from category where pid = "
+					+ id);
+
+			while (rs.next()) {
+				Category c = getCategoryFromRs(rs);
+				categories.add(c);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.close(conn);
+		}
+
+		return categories;
+	}
+
+	private static Category getCategoryFromRs(ResultSet rs) {
+		Category c = new Category();
+		try {
+			c.setId(rs.getInt("id"));
+			c.setPid(rs.getInt("pid"));
+			c.setName(rs.getString("name"));
+			c.setDescr(rs.getString("descr"));
+			// c.setCno(rs.getInt("cno"));
+			c.setGrads(rs.getInt("grade"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return c;
 	}
 
 }

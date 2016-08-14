@@ -15,3 +15,4 @@ function checkUseName(ssn) {
 		alert("\请输入正确的用户名，用户名长度为3-18位！")
 	}
 }
+
