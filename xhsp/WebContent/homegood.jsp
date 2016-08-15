@@ -38,7 +38,7 @@
 		if(category.getGrads() == 1){
 	    	topCategories.add(category);
 	    	str += getSecondCategoryStr(categories, category);
-	    	System.out.println(str);
+	    //	System.out.println(str);
 		}
 	}
 %>
@@ -84,13 +84,13 @@
 		function changCategory1() {
 	<%=str%>
 		/* 	if (document.form2.category1.options[document.form2.category1.selectedIndex].value == 8) {
-																							document.form2.category2.options.length = 3;
-																							document.form2.category2.selectedIndex = 0;
-																							document.form2.category2.options[0].value = '-1';
-																							document.form2.category2.options[0].text = '请选择二级目录';
-																							document.form2.category2.options[1].text = '台式电脑';
-																							document.form2.category2.options[1].value = '9';
-																						} */
+																												document.form2.category2.options.length = 3;
+																												document.form2.category2.selectedIndex = 0;
+																												document.form2.category2.options[0].value = '-1';
+																												document.form2.category2.options[0].text = '请选择二级目录';
+																												document.form2.category2.options[1].text = '台式电脑';
+																												document.form2.category2.options[1].value = '9';
+																											} */
 			/* if (document.form2.category1.selectedIndex == 1) {
 								document.form2.category2.length = 3;
 								document.form2.category2.selectedIndex = 0;
@@ -119,13 +119,51 @@
 			req.send(null);
 		}
 
-		function callback2() {
+		function callback3() {
 			if (req.readyState == 4) {
 				if (req.status == 200) {
-					parse(req.responseText);
+					alert(req.responseText);
+					eval(req.responseText);
 				} else {
 					alert("错误");
 				}
+			}
+		}
+
+		function callback2() {
+			if (req.readyState == 4) {
+				if (req.status == 200) {
+					//	alert(req.responseText);
+					//parse(req.responseText);
+					parseXML(req.responseXML);
+				} else {
+					alert("错误");
+				}
+			}
+		}
+
+		function parseXML(xml) {
+			var categories = xml.getElementsByTagName("categories")[0];
+			//		alert(categories.childNodes.length);
+			//也可以不使用下面if语句
+			if (categories.childNodes.length == 0) {
+				document.form2.category2.length = 1;
+				document.form2.category2.selectedIndex = 0;
+				document.form2.category2.options[0].text = "查询所有二级分类";
+				document.form2.category2.options[0].value = "-1";
+				return;
+			}
+			document.form2.category2.length = categories.childNodes.length + 1;
+			document.form2.category2.selectedIndex = 0;
+			document.form2.category2.options[0].text = "查询所有二级分类";
+			document.form2.category2.options[0].value = "-1";
+
+			for (var i = 0; i < categories.childNodes.length; i++) {
+				var category = categories.childNodes[i];
+				var id = category.childNodes[0].childNodes[0].nodeValue;
+				var name = category.childNodes[1].childNodes[0].nodeValue;
+				document.form2.category2.options[i + 1].text = name;
+				document.form2.category2.options[i + 1].value = id;
 			}
 		}
 

@@ -24,23 +24,26 @@
 	 buffer.deleteCharAt(buffer.length() - 1);
 	 } */
 
-	// 生成xml开始
 	for (int i = 0; i < childs.size(); i++) {
 		Category category = childs.get(i);
-		buffer.append("<category><id>" + category.getId()
-				+ "</id><name>" + category.getName()
-				+ "</name></category>");
+		buffer.append("document.form2.category2.options[" + (i + 1)
+				+ "].text = '" + category.getName() + "';\n");
+		buffer.append("document.form2.category2.options[" + (i + 1)
+				+ "].value = '" + category.getId() + "';\n");
 	}
 	buffer.insert(0,
-			"<?xml version='1.0' encoding='UTF-8'?>\n<categories>");
-	buffer.append("</categories>");
-	// 生成xml结束
+			"document.form2.category2.options[0].text = '请选择二级目录';\n");
+	buffer.insert(0,
+			"document.form2.category2.options[0].value = '-1';\n");
+	buffer.insert(0, "document.form2.category2.selectedIndex = 0;\n");
+	buffer.insert(0, "document.form2.category2.options.length = "
+			+ (childs.size() + 1) + ";\n");
 
 	response.setContentType("text/xml");
 	response.setHeader("Cache-Control", "no-store");//HTTP 1.1
 	response.setHeader("Pragma", "no-cache"); //HTTP 1.0
 	response.setDateHeader("Expires", 0); //prevents caching at the proxy server
 	response.getWriter().write(buffer.toString().trim());
-
-	System.out.println("|" + buffer.toString() + "|");
+	System.out.println(buffer.toString());
+	//System.out.println("|" + buffer.toString() + "|");
 %>
